@@ -8,7 +8,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Libre+Bodoni:wght@500;600&display=swap" rel="stylesheet">
 
   <style>
     :root{
@@ -31,10 +31,10 @@
     .app{
       min-height:100vh;
       display:grid;
-      grid-template-columns:minmax(390px,490px) minmax(420px,1fr);
+      grid-template-columns:minmax(390px,500px) minmax(420px,1fr);
       gap:28px;
       padding:28px;
-      max-width:1600px;
+      max-width:1620px;
       margin:0 auto;
     }
     .panel,.stage{
@@ -308,7 +308,7 @@
       <div class="brand">
         <div>
           <h1>Story Generator</h1>
-          <p class="sub">Master-design version calibrated to the mockup: brighter photo, softer luminous blue gradient, tighter lower stack, and safe-area-first spacing.</p>
+          <p class="sub">Safe-area-first build for Instagram Stories. The bottom is intentionally left roomier so the post stays elegant and usable without UI collisions.</p>
         </div>
         <div class="badge">9:16</div>
       </div>
@@ -323,7 +323,7 @@
           <button type="button" class="template-btn" data-template="seller-financing">Seller Financing</button>
           <button type="button" class="template-btn" data-template="open-house">Open House</button>
         </div>
-        <p class="hint">Templates only prefill wording. The design stays locked.</p>
+        <p class="hint">Templates only prefill wording. The visual design stays locked.</p>
       </div>
 
       <div class="group">
@@ -386,7 +386,7 @@
 
         <label>Current gradient</label>
         <div class="pill" id="appliedGradient">#103E68 → #071A2D</div>
-        <p class="hint">This version uses a much softer gradient structure closer to the mockup: luminous blue behind the text, then deeper navy at the very bottom.</p>
+        <p class="hint">The gradient is tuned to preserve a brighter photo up top, then create a soft blue bloom behind the lower text stack.</p>
       </div>
 
       <div class="group">
@@ -399,7 +399,7 @@
 
         <label for="phone">Phone line</label>
         <input id="phone" type="text" value="(512) YES-2-OWN" />
-        <p class="hint">One logo upload only. The layout is engineered to stay inside the Story safe area without needing a separate safe-zone toggle.</p>
+        <p class="hint">This layout uses one logo upload only and preserves a conservative bottom exclusion zone so Story UI is less likely to interfere.</p>
       </div>
 
       <button class="download" id="download" type="button">DOWNLOAD STORY PNG</button>
@@ -463,6 +463,14 @@
         cta:''
       }
     };
+
+    // Conservative IG Story-safe layout choices for a 1080x1920 canvas.
+    const STORY_W = 1080;
+    const STORY_H = 1920;
+    const SAFE_LEFT = 84;
+    const SAFE_RIGHT = 996;
+    const SAFE_BOTTOM_EXCLUSION = 240;   // keeps content comfortably above bottom Story UI
+    const SAFE_TOP_EXCLUSION = 250;      // available if needed later
 
     const canvas = document.getElementById('storyCanvas');
     const ctx = canvas.getContext('2d', { alpha:false });
@@ -546,18 +554,18 @@
     }
 
     function coverMetrics(img){
-      const base=Math.max(canvas.width/img.width,canvas.height/img.height);
+      const base=Math.max(STORY_W/img.width,STORY_H/img.height);
       const scale=base*state.zoom;
       const w=img.width*scale;
       const h=img.height*scale;
-      return {w,h,x:(canvas.width-w)/2+state.offsetX,y:(canvas.height-h)/2+state.offsetY};
+      return {w,h,x:(STORY_W-w)/2+state.offsetX,y:(STORY_H-h)/2+state.offsetY};
     }
 
     function clampOffsets(){
       if(!state.photo) return;
       const m=coverMetrics(state.photo);
-      const maxX=Math.max(0,(m.w-canvas.width)/2);
-      const maxY=Math.max(0,(m.h-canvas.height)/2);
+      const maxX=Math.max(0,(m.w-STORY_W)/2);
+      const maxY=Math.max(0,(m.h-STORY_H)/2);
       state.offsetX=Math.max(-maxX,Math.min(maxX,state.offsetX));
       state.offsetY=Math.max(-maxY,Math.min(maxY,state.offsetY));
     }
@@ -614,7 +622,7 @@
     }
 
     function draw(){
-      ctx.clearRect(0,0,canvas.width,canvas.height);
+      ctx.clearRect(0,0,STORY_W,STORY_H);
 
       if(state.photo){
         clampOffsets();
@@ -622,126 +630,122 @@
         ctx.drawImage(state.photo,m.x,m.y,m.w,m.h);
       } else {
         ctx.fillStyle='#000';
-        ctx.fillRect(0,0,canvas.width,canvas.height);
+        ctx.fillRect(0,0,STORY_W,STORY_H);
       }
 
-      // No heavy full-frame wash. Keep the upper photo bright like the mockup.
-      // Very subtle bottom-directed atmospheric wash only.
-      const atmospheric = ctx.createLinearGradient(0,980,0,1920);
-      atmospheric.addColorStop(0,'rgba(6,15,28,0)');
-      atmospheric.addColorStop(.30,'rgba(6,15,28,.03)');
-      atmospheric.addColorStop(.58,'rgba(6,15,28,.07)');
-      atmospheric.addColorStop(1,'rgba(6,15,28,.13)');
-      ctx.fillStyle = atmospheric;
+      // Preserve a bright upper photo. No heavy full-frame dark wash.
+      const atmosphere = ctx.createLinearGradient(0,980,0,1920);
+      atmosphere.addColorStop(0,'rgba(4,12,22,0)');
+      atmosphere.addColorStop(.28,'rgba(4,12,22,.02)');
+      atmosphere.addColorStop(.60,'rgba(4,12,22,.05)');
+      atmosphere.addColorStop(1,'rgba(4,12,22,.10)');
+      ctx.fillStyle = atmosphere;
       ctx.fillRect(0,980,1080,940);
 
-      // Luminous blue haze begins around the lower-middle, not abruptly.
-      const lowerHaze = ctx.createLinearGradient(0,1020,0,1920);
-      lowerHaze.addColorStop(0, rgba(state.color1,0));
-      lowerHaze.addColorStop(.18, rgba(state.color1,.025));
-      lowerHaze.addColorStop(.36, rgba(state.color1,.08));
-      lowerHaze.addColorStop(.58, rgba(state.color1,.18));
-      lowerHaze.addColorStop(.77, rgba(state.color2,.28));
-      lowerHaze.addColorStop(1, rgba(state.color2,.44));
-      ctx.fillStyle = lowerHaze;
-      ctx.fillRect(0,1020,1080,900);
+      // Soft luminous blue begins lower and builds gradually.
+      const blueLayer = ctx.createLinearGradient(0,1040,0,1920);
+      blueLayer.addColorStop(0, rgba(state.color1,0));
+      blueLayer.addColorStop(.18, rgba(state.color1,.018));
+      blueLayer.addColorStop(.34, rgba(state.color1,.055));
+      blueLayer.addColorStop(.56, rgba(state.color1,.125));
+      blueLayer.addColorStop(.76, rgba(state.color2,.23));
+      blueLayer.addColorStop(1, rgba(state.color2,.36));
+      ctx.fillStyle = blueLayer;
+      ctx.fillRect(0,1040,1080,880);
 
-      // Bottom navy anchor, starting late so the photo stays lively.
-      const bottomAnchor = ctx.createLinearGradient(0,1450,0,1920);
+      // Bottom navy reserved mostly for the anchor area only.
+      const bottomAnchor = ctx.createLinearGradient(0,1500,0,1920);
       bottomAnchor.addColorStop(0, rgba(state.color2,0));
-      bottomAnchor.addColorStop(.38, rgba(state.color2,.20));
-      bottomAnchor.addColorStop(.72, rgba(state.color2,.48));
-      bottomAnchor.addColorStop(1, rgba(state.color2,.80));
+      bottomAnchor.addColorStop(.34, rgba(state.color2,.14));
+      bottomAnchor.addColorStop(.70, rgba(state.color2,.36));
+      bottomAnchor.addColorStop(1, rgba(state.color2,.64));
       ctx.fillStyle = bottomAnchor;
-      ctx.fillRect(0,1450,1080,470);
+      ctx.fillRect(0,1500,1080,420);
 
-      // Radial blooms to recreate the mockup's luminous lower-third.
-      const bloomLeft = ctx.createRadialGradient(250,1420,70,250,1420,440);
-      bloomLeft.addColorStop(0, rgba(state.color1,.32));
-      bloomLeft.addColorStop(.38, rgba(state.color1,.18));
+      // Bloom effects.
+      const bloomLeft = ctx.createRadialGradient(250,1425,70,250,1425,455);
+      bloomLeft.addColorStop(0, rgba(state.color1,.25));
+      bloomLeft.addColorStop(.38, rgba(state.color1,.14));
       bloomLeft.addColorStop(1, rgba(state.color1,0));
       ctx.fillStyle = bloomLeft;
-      ctx.fillRect(0,1040,600,720);
+      ctx.fillRect(0,1060,640,720);
 
-      const bloomCenter = ctx.createRadialGradient(535,1420,120,535,1420,520);
-      bloomCenter.addColorStop(0,'rgba(255,255,255,.05)');
-      bloomCenter.addColorStop(.35, rgba(state.color1,.10));
-      bloomCenter.addColorStop(1,'rgba(255,255,255,0)');
+      const bloomCenter = ctx.createRadialGradient(545,1420,140,545,1420,540);
+      bloomCenter.addColorStop(0, 'rgba(255,255,255,.045)');
+      bloomCenter.addColorStop(.30, rgba(state.color1,.08));
+      bloomCenter.addColorStop(1, 'rgba(255,255,255,0)');
       ctx.fillStyle = bloomCenter;
-      ctx.fillRect(0,1040,1080,760);
+      ctx.fillRect(0,1080,1080,760);
 
-      const bloomRight = ctx.createRadialGradient(860,1470,80,860,1470,420);
-      bloomRight.addColorStop(0, rgba(state.color1,.24));
-      bloomRight.addColorStop(.42, rgba(state.color1,.14));
+      const bloomRight = ctx.createRadialGradient(855,1470,85,855,1470,430);
+      bloomRight.addColorStop(0, rgba(state.color1,.18));
+      bloomRight.addColorStop(.42, rgba(state.color1,.10));
       bloomRight.addColorStop(1, rgba(state.color1,0));
       ctx.fillStyle = bloomRight;
-      ctx.fillRect(470,1080,610,720);
+      ctx.fillRect(470,1100,610,700);
 
-      const leftX = 84;
-      ctx.fillStyle='#fff';
-      ctx.textBaseline='alphabetic';
-      ctx.textAlign='left';
+      const leftX = SAFE_LEFT;
+      ctx.fillStyle = '#fff';
+      ctx.textBaseline = 'alphabetic';
+      ctx.textAlign = 'left';
 
-      // City
+      // Tighter, intentional stack.
       const city = ui.city.value.trim().toUpperCase();
-      const citySize = fitText(city, 760, 35, 24, s=>`500 ${s}px Inter, Arial, sans-serif`);
+      const citySize = fitText(city, 760, 34, 24, s=>`500 ${s}px Inter, Arial, sans-serif`);
       ctx.font = `500 ${citySize}px Inter, Arial, sans-serif`;
-      drawLetterSpacedLeft(city, leftX, 1176, 8);
+      drawLetterSpacedLeft(city, leftX, 1160, 7.6);
 
-      // Price
       const price = ui.price.value.trim();
-      const priceSize = fitText(price, 820, 122, 76, s=>`600 ${s}px "Bodoni Moda", Georgia, serif`);
-      ctx.font = `600 ${priceSize}px "Bodoni Moda", Georgia, serif`;
-      ctx.fillText(price, leftX, 1308);
+      const priceSize = fitText(price, 820, 118, 76, s=>`600 ${s}px "Libre Bodoni", Georgia, serif`);
+      ctx.font = `600 ${priceSize}px "Libre Bodoni", Georgia, serif`;
+      ctx.fillText(price, leftX, 1280);
 
-      // Headline
       const headline = ui.headline.value.trim().toUpperCase();
-      const headlineSize = fitText(headline, 940, 49, 28, s=>`800 ${s}px Inter, Arial, sans-serif`);
+      const headlineSize = fitText(headline, 940, 48, 28, s=>`800 ${s}px Inter, Arial, sans-serif`);
       ctx.font = `800 ${headlineSize}px Inter, Arial, sans-serif`;
-      ctx.fillText(headline, leftX, 1432);
+      ctx.fillText(headline, leftX, 1392);
 
-      // Detail
       const detail = ui.detail.value.trim().toUpperCase();
       const detailSize = fitText(detail, 955, 24, 16, s=>`500 ${s}px Inter, Arial, sans-serif`);
       ctx.font = `500 ${detailSize}px Inter, Arial, sans-serif`;
-      drawLetterSpacedLeft(detail, leftX, 1492, 2.9);
+      drawLetterSpacedLeft(detail, leftX, 1450, 2.8);
 
-      // Wide capsule button
-      ctx.strokeStyle='rgba(255,255,255,.94)';
-      ctx.lineWidth=3;
-      const bw = 836, bh = 82, bx = (1080-bw)/2, by = 1546;
-      roundedRect(bx,by,bw,bh,41);
+      // Button slightly higher to preserve bottom air.
+      ctx.strokeStyle = 'rgba(255,255,255,.95)';
+      ctx.lineWidth = 3;
+      const bw = 838, bh = 80, bx = (1080-bw)/2, by = 1500;
+      roundedRect(bx,by,bw,bh,40);
       ctx.stroke();
 
       const cta = ui.cta.value.trim().toUpperCase();
       if(cta){
         ctx.fillStyle='#fff';
         ctx.font='700 25px Inter, Arial, sans-serif';
-        drawLetterSpacedCentered(cta, 540, 1598, 2);
+        drawLetterSpacedCentered(cta, 540, 1552, 2);
       }
 
-      // Logo block safely above the bottom
-      let brandY = 1676;
+      // Brand block engineered backward from the bottom safe zone.
+      // Final phone baseline ends well above the exclusion area.
+      let brandY = 1608;
       if(state.logo){
-        brandY = drawLogo(state.logo, 540, brandY, 840, 130) + 26;
+        brandY = drawLogo(state.logo, 540, brandY, 760, 74) + 28;
       }
 
-      // Refined lighter branding typography
-      ctx.textAlign='center';
+      ctx.textAlign = 'center';
 
       const agent = ui.agent.value.trim();
       if(agent){
         const agentSize = fitText(agent, 850, 28, 22, s=>`500 ${s}px Inter, Arial, sans-serif`);
         ctx.font = `500 ${agentSize}px Inter, Arial, sans-serif`;
-        ctx.fillText(agent, 540, brandY + 6);
-        brandY += 44;
+        ctx.fillText(agent, 540, brandY + 2);
+        brandY += 42;
       }
 
       const phone = ui.phone.value.trim();
       if(phone){
         const phoneSize = fitText(phone, 760, 24, 19, s=>`500 ${s}px Inter, Arial, sans-serif`);
         ctx.font = `500 ${phoneSize}px Inter, Arial, sans-serif`;
-        drawLetterSpacedCentered(phone, 540, brandY + 6, 1.7);
+        drawLetterSpacedCentered(phone, 540, brandY + 2, 1.6);
       }
     }
 
