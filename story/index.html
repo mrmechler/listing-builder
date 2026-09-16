@@ -158,7 +158,7 @@
       <div class="brand">
         <div>
           <h1>Story Generator</h1>
-          <p class="sub">This version restores the mockup-style alignment and keeps all content safely inside the bottom safe area by default.</p>
+          <p class="sub">Locked typography and layout, with tighter spacing between the city, price, and incentives to better match the mockup.</p>
         </div>
         <div class="badge">9:16</div>
       </div>
@@ -173,7 +173,7 @@
           <button type="button" class="template-btn" data-template="seller-financing">Seller Financing</button>
           <button type="button" class="template-btn" data-template="open-house">Open House</button>
         </div>
-        <p class="hint">Templates only prefill wording. They do not change the design.</p>
+        <p class="hint">Templates only prefill wording. The design stays locked.</p>
       </div>
 
       <div class="group">
@@ -248,7 +248,7 @@
 
         <label for="phone">Phone line</label>
         <input id="phone" type="text" value="(512) YES-2-OWN" />
-        <p class="hint">One logo upload only. All content is positioned within the safe area by default, so there is no separate safe-zone toggle.</p>
+        <p class="hint">One logo upload only. Content is kept inside the safe area by default.</p>
       </div>
 
       <button class="download" id="download" type="button">DOWNLOAD STORY PNG</button>
@@ -469,7 +469,6 @@
         ctx.fillRect(0,0,canvas.width,canvas.height);
       }
 
-      // subtle full-frame wash
       const wash=ctx.createLinearGradient(0,0,0,canvas.height);
       wash.addColorStop(0,'rgba(0,0,0,.03)');
       wash.addColorStop(.52,'rgba(0,0,0,.06)');
@@ -478,7 +477,6 @@
       ctx.fillStyle=wash;
       ctx.fillRect(0,0,canvas.width,canvas.height);
 
-      // lower-third gradient tuned closer to the mockup
       const grad=ctx.createLinearGradient(0,930,0,1920);
       grad.addColorStop(0, rgba(state.color1,0));
       grad.addColorStop(.14, rgba(state.color1,.03));
@@ -514,34 +512,34 @@
       ctx.textAlign='left';
       ctx.textBaseline='alphabetic';
 
-      // City — left aligned, tracked like the mockup
+      // CITY — moved down closer to price.
       const city = ui.city.value.trim().toUpperCase();
-      const citySize = fitText(city, 760, 36, 24, s=>`500 ${s}px Inter, Arial, sans-serif`);
+      const citySize = fitText(city, 760, 35, 24, s=>`500 ${s}px Inter, Arial, sans-serif`);
       ctx.font = `500 ${citySize}px Inter, Arial, sans-serif`;
-      drawLetterSpacedLeft(city, leftX, 1122, 8.5);
+      drawLetterSpacedLeft(city, leftX, 1180, 8);
 
-      // Price — elegant and left aligned
+      // PRICE — kept elegant, and moved closer to incentives.
       const price = ui.price.value.trim();
-      const priceSize = fitText(price, 800, 128, 76, s=>`600 ${s}px "Cormorant Garamond", Georgia, serif`);
+      const priceSize = fitText(price, 800, 122, 76, s=>`600 ${s}px "Cormorant Garamond", Georgia, serif`);
       ctx.font = `600 ${priceSize}px "Cormorant Garamond", Georgia, serif`;
-      ctx.fillText(price, leftX, 1288);
+      ctx.fillText(price, leftX, 1315);
 
-      // Headline — left aligned, tighter and bolder like the mockup
+      // HEADLINE — pulled upward slightly closer to price.
       const headline = ui.headline.value.trim().toUpperCase();
       const headlineSize = fitText(headline, 930, 49, 28, s=>`800 ${s}px Inter, Arial, sans-serif`);
       ctx.font = `800 ${headlineSize}px Inter, Arial, sans-serif`;
-      ctx.fillText(headline, leftX, 1418);
+      ctx.fillText(headline, leftX, 1450);
 
-      // Detail line — left aligned, more deliberate tracking
+      // DETAIL
       const detail = ui.detail.value.trim().toUpperCase();
       const detailSize = fitText(detail, 945, 24, 16, s=>`500 ${s}px Inter, Arial, sans-serif`);
       ctx.font = `500 ${detailSize}px Inter, Arial, sans-serif`;
-      drawLetterSpacedLeft(detail, leftX, 1478, 3.15);
+      drawLetterSpacedLeft(detail, leftX, 1508, 3.0);
 
-      // Button — wide outlined capsule, centered, like mockup
+      // BUTTON
       ctx.strokeStyle='rgba(255,255,255,.93)';
       ctx.lineWidth=3;
-      const bw = 820, bh = 78, bx = (1080-bw)/2, by = 1528;
+      const bw = 820, bh = 78, bx = (1080-bw)/2, by = 1560;
       roundedRect(bx,by,bw,bh,39);
       ctx.stroke();
 
@@ -549,30 +547,30 @@
       if(cta){
         ctx.fillStyle='#fff';
         ctx.font='700 25px Inter, Arial, sans-serif';
-        drawLetterSpacedCentered(cta, 540, 1578, 2);
+        drawLetterSpacedCentered(cta, 540, 1610, 2);
       }
 
-      // Single logo upload — centered row
-      let brandY = 1640;
+      // LOGO
+      let brandY = 1670;
       if(state.logo){
-        brandY = drawLogo(state.logo, 540, brandY, 860, 150) + 24;
+        brandY = drawLogo(state.logo, 540, brandY, 860, 145) + 22;
       }
 
-      // Name and phone — same serif family for a cleaner match
+      // NAME / PHONE — cleaner sans serif treatment
+      ctx.textAlign='center';
       const agent = ui.agent.value.trim();
       if(agent){
-        const agentSize = fitText(agent, 860, 33, 24, s=>`500 ${s}px "Cormorant Garamond", Georgia, serif`);
-        ctx.font = `500 ${agentSize}px "Cormorant Garamond", Georgia, serif`;
-        ctx.textAlign='center';
-        ctx.fillText(agent, 540, brandY + 4);
-        brandY += 48;
+        const agentSize = fitText(agent, 850, 28, 22, s=>`500 ${s}px Inter, Arial, sans-serif`);
+        ctx.font = `500 ${agentSize}px Inter, Arial, sans-serif`;
+        ctx.fillText(agent, 540, brandY + 8);
+        brandY += 44;
       }
 
       const phone = ui.phone.value.trim();
       if(phone){
-        const phoneSize = fitText(phone, 760, 30, 22, s=>`500 ${s}px "Cormorant Garamond", Georgia, serif`);
-        ctx.font = `500 ${phoneSize}px "Cormorant Garamond", Georgia, serif`;
-        ctx.fillText(phone, 540, brandY + 2);
+        const phoneSize = fitText(phone, 740, 26, 20, s=>`500 ${s}px Inter, Arial, sans-serif`);
+        ctx.font = `500 ${phoneSize}px Inter, Arial, sans-serif`;
+        drawLetterSpacedCentered(phone, 540, brandY + 8, 1.8);
       }
     }
 
