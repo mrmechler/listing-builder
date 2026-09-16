@@ -32,10 +32,10 @@
     .app{
       min-height:100vh;
       display:grid;
-      grid-template-columns:minmax(380px,470px) minmax(420px,1fr);
+      grid-template-columns:minmax(390px,480px) minmax(420px,1fr);
       gap:28px;
       padding:28px;
-      max-width:1580px;
+      max-width:1600px;
       margin:0 auto;
     }
     .panel,.stage{
@@ -81,10 +81,11 @@
     }
     input[type="range"]{width:100%;accent-color:var(--accent)}
     .inline{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    .template-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .template-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
     .template-btn{
       background:#f7fafc;color:#23323f;border:1px solid #d6dfe7;border-radius:12px;
-      padding:12px;text-align:center;font-size:13px;font-weight:800;cursor:pointer;
+      padding:12px;text-align:center;font-size:12px;font-weight:800;cursor:pointer;
+      letter-spacing:.03em;
     }
     .template-btn.active{background:#0b2d4e;border-color:#0b2d4e;color:#fff}
     .zoom-row{
@@ -119,8 +120,6 @@
       border:1px solid #cfd8df;border-radius:11px;background:#f8fafb;color:#41505d;
       font-size:12px;font-weight:700;white-space:nowrap;
     }
-    .safe{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;color:#425260}
-    .safe input{accent-color:var(--accent)}
     .download{
       width:100%;margin-top:10px;padding:14px 16px;
       background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;font-size:15px;
@@ -144,11 +143,12 @@
     }
     .empty strong{display:block;font-size:18px;margin-bottom:8px}
     .empty span{font-size:13px;opacity:.75}
-    @media (max-width:980px){
+    @media (max-width:1040px){
       .app{grid-template-columns:1fr;padding:16px}
       .panel{position:static;max-height:none}
       .stage{min-height:auto;padding:18px}
       .canvas-shell{width:min(100%,420px)}
+      .template-grid{grid-template-columns:1fr 1fr}
     }
   </style>
 </head>
@@ -158,7 +158,7 @@
       <div class="brand">
         <div>
           <h1>Story Generator</h1>
-          <p class="sub">This version is tuned to match your reference layout much more closely: lower-third composition, softer blue glow, wide capsule button, and stacked branding beneath the logo row.</p>
+          <p class="sub">This version restores the mockup-style alignment and keeps all content safely inside the bottom safe area by default.</p>
         </div>
         <div class="badge">9:16</div>
       </div>
@@ -166,12 +166,14 @@
       <div class="group">
         <div class="group-title">1. Template</div>
         <div class="template-grid">
-          <button type="button" class="template-btn active" data-template="for-sale">For Sale</button>
+          <button type="button" class="template-btn active" data-template="custom">Custom</button>
+          <button type="button" class="template-btn" data-template="just-listed">Just Listed</button>
+          <button type="button" class="template-btn" data-template="for-sale">For Sale</button>
           <button type="button" class="template-btn" data-template="for-lease">For Lease</button>
           <button type="button" class="template-btn" data-template="seller-financing">Seller Financing</button>
           <button type="button" class="template-btn" data-template="open-house">Open House</button>
         </div>
-        <p class="hint">Templates change the default wording only. The output design stays locked.</p>
+        <p class="hint">Templates only prefill wording. They do not change the design.</p>
       </div>
 
       <div class="group">
@@ -191,7 +193,7 @@
           <button class="secondary" id="centerPhoto" type="button">Center photo</button>
           <button class="secondary" id="resetAll" type="button">Reset all</button>
         </div>
-        <p class="hint">Use the slider, + / −, or mouse wheel / trackpad. Drag directly on the preview to reposition the image.</p>
+        <p class="hint">Zoom works with the slider, the + / − buttons, and mouse wheel / trackpad. Drag directly on the preview to reposition the photo.</p>
       </div>
 
       <div class="group">
@@ -214,7 +216,7 @@
         <input id="detail" type="text" value="LOW INTEREST RATE • CLOSINGS COSTS • AND MORE" />
 
         <label for="cta">Button text (optional)</label>
-        <input id="cta" type="text" value="" placeholder="Leave blank for the empty outlined button look" />
+        <input id="cta" type="text" value="" placeholder="Leave blank for an empty outlined button" />
       </div>
 
       <div class="group">
@@ -238,23 +240,15 @@
 
       <div class="group">
         <div class="group-title">5. Branding</div>
-        <label for="leftLogoInput">Left logo upload</label>
-        <input id="leftLogoInput" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" />
-
-        <label for="rightLogoInput">Right logo upload</label>
-        <input id="rightLogoInput" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" />
+        <label for="logoInput">Logo upload</label>
+        <input id="logoInput" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" />
 
         <label for="agent">Name line</label>
         <input id="agent" type="text" value="Michael Mechler, Broker Associate" />
 
         <label for="phone">Phone line</label>
         <input id="phone" type="text" value="(512) YES-2-OWN" />
-
-        <div class="safe">
-          <input id="safeGuides" type="checkbox" />
-          <label for="safeGuides" style="margin:0;font-weight:700">Show safe-zone guides</label>
-        </div>
-        <p class="hint">The guide overlay is preview-only and never exports. Logo row is left logo • divider • right logo, with your name and phone below.</p>
+        <p class="hint">One logo upload only. All content is positioned within the safe area by default, so there is no separate safe-zone toggle.</p>
       </div>
 
       <button class="download" id="download" type="button">DOWNLOAD STORY PNG</button>
@@ -275,9 +269,23 @@
 
   <script>
     const TEMPLATES = {
-      'for-sale': {
+      'custom': {
         city:'LIBERTY HILL',
         price:'$275,890',
+        headline:'+ 3% IN BUYER INCENTIVES',
+        detail:'LOW INTEREST RATE • CLOSINGS COSTS • AND MORE',
+        cta:''
+      },
+      'just-listed': {
+        city:'AUSTIN',
+        price:'$499,000',
+        headline:'JUST LISTED',
+        detail:'NEW TO MARKET',
+        cta:''
+      },
+      'for-sale': {
+        city:'AUSTIN',
+        price:'$499,000',
         headline:'+ 3% IN BUYER INCENTIVES',
         detail:'LOW INTEREST RATE • CLOSINGS COSTS • AND MORE',
         cta:''
@@ -310,8 +318,7 @@
 
     const ui = {
       photoInput:document.getElementById('photoInput'),
-      leftLogoInput:document.getElementById('leftLogoInput'),
-      rightLogoInput:document.getElementById('rightLogoInput'),
+      logoInput:document.getElementById('logoInput'),
       zoom:document.getElementById('zoom'),
       zoomIn:document.getElementById('zoomIn'),
       zoomOut:document.getElementById('zoomOut'),
@@ -331,16 +338,14 @@
       centerPhoto:document.getElementById('centerPhoto'),
       resetAll:document.getElementById('resetAll'),
       download:document.getElementById('download'),
-      safeGuides:document.getElementById('safeGuides'),
       emptyState:document.getElementById('emptyState'),
       templateButtons:Array.from(document.querySelectorAll('.template-btn'))
     };
 
     const state = {
-      currentTemplate:'for-sale',
+      currentTemplate:'custom',
       photo:null,
-      leftLogo:null,
-      rightLogo:null,
+      logo:null,
       zoom:1,
       offsetX:0,
       offsetY:0,
@@ -412,7 +417,7 @@
       return minSize;
     }
 
-    function drawLetterSpacedText(text,x,y,spacing){
+    function drawLetterSpacedCentered(text,x,y,spacing){
       const chars=[...text];
       const widths=chars.map(ch=>ctx.measureText(ch).width);
       const total=widths.reduce((a,b)=>a+b,0)+spacing*Math.max(0,chars.length-1);
@@ -420,6 +425,16 @@
       for(let i=0;i<chars.length;i++){
         ctx.fillText(chars[i],cursor,y);
         cursor+=widths[i]+spacing;
+      }
+    }
+
+    function drawLetterSpacedLeft(text,x,y,spacing){
+      const chars=[...text];
+      let cursor=x;
+      for(let i=0;i<chars.length;i++){
+        const ch=chars[i];
+        ctx.fillText(ch,cursor,y);
+        cursor+=ctx.measureText(ch).width+spacing;
       }
     }
 
@@ -435,34 +450,11 @@
     }
 
     function drawLogo(img, centerX, topY, maxW, maxH){
-      if(!img) return {w:0,h:0,y:topY};
+      if(!img) return topY;
       const scale=Math.min(maxW/img.width, maxH/img.height, 1);
       const w=img.width*scale, h=img.height*scale;
       ctx.drawImage(img, centerX-w/2, topY, w, h);
-      return {w,h,y:topY+h};
-    }
-
-    function drawSafeGuides(){
-      if(!ui.safeGuides.checked) return;
-      ctx.save();
-      ctx.setLineDash([10,10]);
-      ctx.lineWidth=2;
-      ctx.strokeStyle='rgba(255,255,255,.78)';
-      ctx.strokeRect(54,120,972,1680);
-      ctx.strokeStyle='rgba(255,255,255,.58)';
-      ctx.strokeRect(88,250,904,1420);
-
-      ctx.setLineDash([]);
-      ctx.fillStyle='rgba(12,24,36,.72)';
-      roundedRect(92, 188, 210, 40, 8); ctx.fill();
-      roundedRect(92, 1688, 248, 40, 8); ctx.fill();
-      ctx.fillStyle='rgba(255,255,255,.96)';
-      ctx.font='700 18px Inter, Arial, sans-serif';
-      ctx.textAlign='left';
-      ctx.textBaseline='middle';
-      ctx.fillText('Top safe zone',108,208);
-      ctx.fillText('Bottom safe zone',108,1708);
-      ctx.restore();
+      return topY+h;
     }
 
     function draw(){
@@ -477,127 +469,118 @@
         ctx.fillRect(0,0,canvas.width,canvas.height);
       }
 
-      // Overall subtle wash
+      // subtle full-frame wash
       const wash=ctx.createLinearGradient(0,0,0,canvas.height);
-      wash.addColorStop(0,'rgba(0,0,0,.05)');
-      wash.addColorStop(.50,'rgba(0,0,0,.08)');
-      wash.addColorStop(.72,'rgba(5,11,18,.14)');
-      wash.addColorStop(1,'rgba(2,8,14,.26)');
+      wash.addColorStop(0,'rgba(0,0,0,.03)');
+      wash.addColorStop(.52,'rgba(0,0,0,.06)');
+      wash.addColorStop(.74,'rgba(3,9,15,.14)');
+      wash.addColorStop(1,'rgba(3,9,15,.24)');
       ctx.fillStyle=wash;
       ctx.fillRect(0,0,canvas.width,canvas.height);
 
-      // Main lower-third base gradient
-      const grad=ctx.createLinearGradient(0,900,0,1920);
+      // lower-third gradient tuned closer to the mockup
+      const grad=ctx.createLinearGradient(0,930,0,1920);
       grad.addColorStop(0, rgba(state.color1,0));
-      grad.addColorStop(.15, rgba(state.color1,.04));
-      grad.addColorStop(.32, rgba(state.color1,.16));
-      grad.addColorStop(.53, rgba(state.color1,.33));
-      grad.addColorStop(.74, rgba(state.color2,.64));
-      grad.addColorStop(1, rgba(state.color2,.90));
+      grad.addColorStop(.14, rgba(state.color1,.03));
+      grad.addColorStop(.31, rgba(state.color1,.13));
+      grad.addColorStop(.50, rgba(state.color1,.27));
+      grad.addColorStop(.72, rgba(state.color2,.58));
+      grad.addColorStop(1, rgba(state.color2,.88));
       ctx.fillStyle=grad;
-      ctx.fillRect(0,900,1080,1020);
+      ctx.fillRect(0,930,1080,990);
 
-      // Soft horizontal glow like the reference
-      const leftGlow = ctx.createRadialGradient(260,1460,60,260,1460,440);
-      leftGlow.addColorStop(0, rgba(state.color1, .42));
-      leftGlow.addColorStop(.35, rgba(state.color1, .22));
-      leftGlow.addColorStop(1, rgba(state.color1, 0));
-      ctx.fillStyle = leftGlow;
-      ctx.fillRect(0,960,620,840);
+      const leftGlow = ctx.createRadialGradient(210,1455,50,210,1455,380);
+      leftGlow.addColorStop(0, rgba(state.color1,.34));
+      leftGlow.addColorStop(.35, rgba(state.color1,.19));
+      leftGlow.addColorStop(1, rgba(state.color1,0));
+      ctx.fillStyle=leftGlow;
+      ctx.fillRect(0,1020,520,680);
 
-      const rightGlow = ctx.createRadialGradient(835,1455,60,835,1455,450);
-      rightGlow.addColorStop(0, rgba(state.color1, .42));
-      rightGlow.addColorStop(.35, rgba(state.color1, .22));
-      rightGlow.addColorStop(1, rgba(state.color1, 0));
-      ctx.fillStyle = rightGlow;
-      ctx.fillRect(450,960,630,840);
+      const centerGlow = ctx.createRadialGradient(540,1390,150,540,1390,560);
+      centerGlow.addColorStop(0,'rgba(255,255,255,.04)');
+      centerGlow.addColorStop(1,'rgba(255,255,255,0)');
+      ctx.fillStyle=centerGlow;
+      ctx.fillRect(0,1040,1080,760);
 
-      const centerGlow = ctx.createRadialGradient(540,1360,120,540,1360,590);
-      centerGlow.addColorStop(0, 'rgba(255,255,255,.05)');
-      centerGlow.addColorStop(1, 'rgba(255,255,255,0)');
-      ctx.fillStyle = centerGlow;
-      ctx.fillRect(0,900,1080,1020);
+      const rightGlow = ctx.createRadialGradient(890,1450,60,890,1450,390);
+      rightGlow.addColorStop(0, rgba(state.color1,.28));
+      rightGlow.addColorStop(.35, rgba(state.color1,.16));
+      rightGlow.addColorStop(1, rgba(state.color1,0));
+      ctx.fillStyle=rightGlow;
+      ctx.fillRect(560,1020,520,700);
 
+      const leftX = 84;
       ctx.fillStyle='#fff';
-      ctx.textAlign='center';
+      ctx.textAlign='left';
       ctx.textBaseline='alphabetic';
 
-      // City
-      const city=ui.city.value.trim().toUpperCase();
-      const citySize=fitText(city,820,36,24,s=>`500 ${s}px Inter, Arial, sans-serif`);
-      ctx.font=`500 ${citySize}px Inter, Arial, sans-serif`;
-      drawLetterSpacedText(city,540,1126,9);
+      // City — left aligned, tracked like the mockup
+      const city = ui.city.value.trim().toUpperCase();
+      const citySize = fitText(city, 760, 36, 24, s=>`500 ${s}px Inter, Arial, sans-serif`);
+      ctx.font = `500 ${citySize}px Inter, Arial, sans-serif`;
+      drawLetterSpacedLeft(city, leftX, 1122, 8.5);
 
-      // Price
-      const price=ui.price.value.trim();
-      const priceSize=fitText(price,920,126,72,s=>`600 ${s}px "Cormorant Garamond", Georgia, serif`);
-      ctx.font=`600 ${priceSize}px "Cormorant Garamond", Georgia, serif`;
-      ctx.fillText(price,540,1284);
+      // Price — elegant and left aligned
+      const price = ui.price.value.trim();
+      const priceSize = fitText(price, 800, 128, 76, s=>`600 ${s}px "Cormorant Garamond", Georgia, serif`);
+      ctx.font = `600 ${priceSize}px "Cormorant Garamond", Georgia, serif`;
+      ctx.fillText(price, leftX, 1288);
 
-      // Headline
-      const headline=ui.headline.value.trim().toUpperCase();
-      const headlineSize=fitText(headline,960,48,28,s=>`800 ${s}px Inter, Arial, sans-serif`);
-      ctx.font=`800 ${headlineSize}px Inter, Arial, sans-serif`;
-      ctx.fillText(headline,540,1418);
+      // Headline — left aligned, tighter and bolder like the mockup
+      const headline = ui.headline.value.trim().toUpperCase();
+      const headlineSize = fitText(headline, 930, 49, 28, s=>`800 ${s}px Inter, Arial, sans-serif`);
+      ctx.font = `800 ${headlineSize}px Inter, Arial, sans-serif`;
+      ctx.fillText(headline, leftX, 1418);
 
-      // Detail line
-      const detail=ui.detail.value.trim().toUpperCase();
-      const detailSize=fitText(detail,970,24,16,s=>`500 ${s}px Inter, Arial, sans-serif`);
-      ctx.font=`500 ${detailSize}px Inter, Arial, sans-serif`;
-      drawLetterSpacedText(detail,540,1478,3.4);
+      // Detail line — left aligned, more deliberate tracking
+      const detail = ui.detail.value.trim().toUpperCase();
+      const detailSize = fitText(detail, 945, 24, 16, s=>`500 ${s}px Inter, Arial, sans-serif`);
+      ctx.font = `500 ${detailSize}px Inter, Arial, sans-serif`;
+      drawLetterSpacedLeft(detail, leftX, 1478, 3.15);
 
-      // Button
-      ctx.strokeStyle='rgba(255,255,255,.92)';
+      // Button — wide outlined capsule, centered, like mockup
+      ctx.strokeStyle='rgba(255,255,255,.93)';
       ctx.lineWidth=3;
-      const bw=830, bh=78, bx=540-bw/2, by=1524;
-      roundedRect(bx,by,bw,bh,38);
+      const bw = 820, bh = 78, bx = (1080-bw)/2, by = 1528;
+      roundedRect(bx,by,bw,bh,39);
       ctx.stroke();
 
-      const cta=ui.cta.value.trim().toUpperCase();
+      const cta = ui.cta.value.trim().toUpperCase();
       if(cta){
+        ctx.fillStyle='#fff';
         ctx.font='700 25px Inter, Arial, sans-serif';
-        ctx.fillStyle='#fff';
-        drawLetterSpacedText(cta,540,1573,2);
+        drawLetterSpacedCentered(cta, 540, 1578, 2);
       }
 
-      // Logo row
-      const logoTop = 1648;
-      const left = drawLogo(state.leftLogo, 312, logoTop, 360, 140);
-      const right = drawLogo(state.rightLogo, 756, logoTop + 10, 390, 92);
+      // Single logo upload — centered row
+      let brandY = 1640;
+      if(state.logo){
+        brandY = drawLogo(state.logo, 540, brandY, 860, 150) + 24;
+      }
 
-      // Divider
-      ctx.save();
-      ctx.strokeStyle='rgba(255,255,255,.72)';
-      ctx.lineWidth=2;
-      ctx.beginPath();
-      ctx.moveTo(540, 1676);
-      ctx.lineTo(540, 1764);
-      ctx.stroke();
-      ctx.restore();
-
-      // Name and phone
-      const agent=ui.agent.value.trim();
+      // Name and phone — same serif family for a cleaner match
+      const agent = ui.agent.value.trim();
       if(agent){
-        const agentSize=fitText(agent,860,34,24,s=>`500 ${s}px "Cormorant Garamond", Georgia, serif`);
-        ctx.font=`500 ${agentSize}px "Cormorant Garamond", Georgia, serif`;
-        ctx.fillStyle='#fff';
-        ctx.fillText(agent,540,1816);
+        const agentSize = fitText(agent, 860, 33, 24, s=>`500 ${s}px "Cormorant Garamond", Georgia, serif`);
+        ctx.font = `500 ${agentSize}px "Cormorant Garamond", Georgia, serif`;
+        ctx.textAlign='center';
+        ctx.fillText(agent, 540, brandY + 4);
+        brandY += 48;
       }
 
-      const phone=ui.phone.value.trim();
+      const phone = ui.phone.value.trim();
       if(phone){
-        ctx.font='500 24px Inter, Arial, sans-serif';
-        drawLetterSpacedText(phone,540,1862,2.8);
+        const phoneSize = fitText(phone, 760, 30, 22, s=>`500 ${s}px "Cormorant Garamond", Georgia, serif`);
+        ctx.font = `500 ${phoneSize}px "Cormorant Garamond", Georgia, serif`;
+        ctx.fillText(phone, 540, brandY + 2);
       }
-
-      drawSafeGuides();
     }
 
     function applyTemplate(name){
       const tpl=TEMPLATES[name];
       if(!tpl) return;
       state.currentTemplate=name;
-      ui.templateButtons.forEach(btn=>btn.classList.toggle('active',btn.dataset.template===name));
+      ui.templateButtons.forEach(btn=>btn.classList.toggle('active', btn.dataset.template===name));
       ui.city.value=tpl.city;
       ui.price.value=tpl.price;
       ui.headline.value=tpl.headline;
@@ -632,12 +615,8 @@
       });
     });
 
-    ui.leftLogoInput.addEventListener('change',e=>{
-      loadImageFromFile(e.target.files[0],img=>{state.leftLogo=img;draw()});
-    });
-
-    ui.rightLogoInput.addEventListener('change',e=>{
-      loadImageFromFile(e.target.files[0],img=>{state.rightLogo=img;draw()});
+    ui.logoInput.addEventListener('change',e=>{
+      loadImageFromFile(e.target.files[0],img=>{state.logo=img;draw()});
     });
 
     ['city','price','headline','detail','cta','agent','phone'].forEach(id=>{
@@ -654,8 +633,6 @@
       draw();
     });
 
-    ui.safeGuides.addEventListener('change',draw);
-
     ui.color1Picker.addEventListener('input',()=>applyColors(ui.color1Picker.value,state.color2));
     ui.color2Picker.addEventListener('input',()=>applyColors(state.color1,ui.color2Picker.value));
     ui.color1Hex.addEventListener('blur',()=>applyColors(ui.color1Hex.value,state.color2));
@@ -664,8 +641,7 @@
     ui.resetAll.addEventListener('click',()=>{
       state.offsetX=0;
       state.offsetY=0;
-      ui.safeGuides.checked=false;
-      applyTemplate('for-sale');
+      applyTemplate('custom');
       applyColors('#103E68','#071A2D');
       ui.agent.value='Michael Mechler, Broker Associate';
       ui.phone.value='(512) YES-2-OWN';
@@ -713,30 +689,23 @@
     canvas.addEventListener('wheel',e=>{
       if(!state.photo) return;
       e.preventDefault();
-      setZoom(state.zoom+(e.deltaY>0?-.04:.04));
-    },{passive:false});
+      setZoom(state.zoom + (e.deltaY>0 ? -.04 : .04));
+    }, {passive:false});
 
     ui.download.addEventListener('click',()=>{
       if(!state.photo){
         alert('Upload a property photo first.');
         return;
       }
-      const showGuides=ui.safeGuides.checked;
-      ui.safeGuides.checked=false;
-      draw();
-
       const link=document.createElement('a');
       const safeCity=(ui.city.value||'property').trim().toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
-      link.download=`${safeCity||'property'}-${state.currentTemplate}-story.png`;
+      link.download=`${safeCity || 'property'}-${state.currentTemplate}-story.png`;
       link.href=canvas.toDataURL('image/png',1);
       link.click();
-
-      ui.safeGuides.checked=showGuides;
-      draw();
     });
 
     applyColors('#103E68','#071A2D');
-    applyTemplate('for-sale');
+    applyTemplate('custom');
     setZoom(1);
     document.fonts.ready.then(draw);
   </script>
