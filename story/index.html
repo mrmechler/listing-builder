@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <meta name="theme-color" content="#071A2D" />
+  <meta name="theme-color" content="#100B28" />
   <title>Story Generator</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,7 +17,7 @@
       --ink:#0d1722;
       --muted:#6f7b87;
       --line:#dfe5ea;
-      --navy:#071A2D;
+      --navy:#100B28;
       --blue:#103E68;
       --shadow:0 20px 60px rgba(17,32,46,.12);
     }
@@ -308,13 +308,13 @@
       <div class="brand">
         <div>
           <h1>Story Generator</h1>
-          <p class="sub">Safe-area-first build for Instagram Stories. The bottom is intentionally left roomier so the post stays elegant and usable without UI collisions.</p>
+          <p class="sub">Create polished, on-brand Instagram Stories for listings, incentives, open houses, and more.</p>
         </div>
         <div class="badge">9:16</div>
       </div>
 
       <div class="group">
-        <div class="group-title">1. Template</div>
+        <div class="group-title">1. Story type</div>
         <div class="template-grid">
           <button type="button" class="template-btn active" data-template="custom">Custom</button>
           <button type="button" class="template-btn" data-template="just-listed">Just Listed</button>
@@ -323,7 +323,7 @@
           <button type="button" class="template-btn" data-template="seller-financing">Seller Financing</button>
           <button type="button" class="template-btn" data-template="open-house">Open House</button>
         </div>
-        <p class="hint">Templates only prefill wording. The visual design stays locked.</p>
+        <p class="hint">Choose a starting point, then customize the details below.</p>
       </div>
 
       <div class="group">
@@ -343,14 +343,14 @@
           <button class="secondary" id="centerPhoto" type="button">Center photo</button>
           <button class="secondary" id="resetAll" type="button">Reset all</button>
         </div>
-        <p class="hint">Use the slider, + / − buttons, mouse wheel / trackpad, or drag the preview to reposition the photo.</p>
+        <p class="hint">Drag the preview to reposition the photo. Use the zoom controls to fine-tune the crop.</p>
       </div>
 
       <div class="group">
         <div class="group-title">3. Content</div>
         <div class="inline">
           <div>
-            <label for="city">City</label>
+            <label for="city">City/Neighborhood</label>
             <input id="city" type="text" value="LIBERTY HILL" />
           </div>
           <div>
@@ -363,30 +363,30 @@
         <input id="headline" type="text" value="+ 3% IN BUYER INCENTIVES" />
 
         <label for="detail">Detail line</label>
-        <input id="detail" type="text" value="LOW INTEREST RATE • CLOSINGS COSTS • AND MORE" />
+        <input id="detail" type="text" value="LOW INTEREST RATE • CLOSING COSTS • AND MORE" />
 
         <label for="cta">Button text (optional)</label>
         <input id="cta" type="text" value="" placeholder="Leave blank for the empty outlined button look" />
       </div>
 
       <div class="group">
-        <div class="group-title">4. Gradient colors</div>
+        <div class="group-title">4. Brand colors</div>
 
-        <label for="color1Hex">Upper blue glow hex</label>
+        <label for="color1Hex">Accent blue</label>
         <div class="color-grid">
           <input id="color1Picker" class="swatch" type="color" value="#103E68" />
           <input id="color1Hex" type="text" value="#103E68" />
         </div>
 
-        <label for="color2Hex">Bottom navy hex</label>
+        <label for="color2Hex">DE dark blue</label>
         <div class="color-grid">
-          <input id="color2Picker" class="swatch" type="color" value="#071A2D" />
-          <input id="color2Hex" type="text" value="#071A2D" />
+          <input id="color2Picker" class="swatch" type="color" value="#100B28" />
+          <input id="color2Hex" type="text" value="#100B28" />
         </div>
 
-        <label>Current gradient</label>
-        <div class="pill" id="appliedGradient">#103E68 → #071A2D</div>
-        <p class="hint">The gradient is tuned to preserve a brighter photo up top, then create a soft blue bloom behind the lower text stack.</p>
+        <label>Current colors</label>
+        <div class="pill" id="appliedGradient">#103E68 → #100B28</div>
+        <p class="hint">The default colors are optimized for this design. Adjust only if you want a custom look.</p>
       </div>
 
       <div class="group">
@@ -399,10 +399,10 @@
 
         <label for="phone">Phone line</label>
         <input id="phone" type="text" value="(512) YES-2-OWN" />
-        <p class="hint">This layout uses one logo upload only and preserves a conservative bottom exclusion zone so Story UI is less likely to interfere.</p>
+        <p class="hint">Upload your preferred logo lockup. PNG with transparency works best.</p>
       </div>
 
-      <button class="download" id="download" type="button">DOWNLOAD STORY PNG</button>
+      <button class="download" id="download" type="button">DOWNLOAD STORY</button>
     </section>
 
     <section class="stage">
@@ -424,7 +424,7 @@
         city:'LIBERTY HILL',
         price:'$275,890',
         headline:'+ 3% IN BUYER INCENTIVES',
-        detail:'LOW INTEREST RATE • CLOSINGS COSTS • AND MORE',
+        detail:'LOW INTEREST RATE • CLOSING COSTS • AND MORE',
         cta:''
       },
       'just-listed': {
@@ -438,7 +438,7 @@
         city:'AUSTIN',
         price:'$499,000',
         headline:'+ 3% IN BUYER INCENTIVES',
-        detail:'LOW INTEREST RATE • CLOSINGS COSTS • AND MORE',
+        detail:'LOW INTEREST RATE • CLOSING COSTS • AND MORE',
         cta:''
       },
       'for-lease': {
@@ -512,7 +512,7 @@
       lastX:0,
       lastY:0,
       color1:'#103E68',
-      color2:'#071A2D'
+      color2:'#100B28'
     };
 
     function loadImageFromFile(file, done){
@@ -633,58 +633,83 @@
         ctx.fillRect(0,0,STORY_W,STORY_H);
       }
 
-      // Preserve a bright upper photo. No heavy full-frame dark wash.
-      const atmosphere = ctx.createLinearGradient(0,980,0,1920);
-      atmosphere.addColorStop(0,'rgba(4,12,22,0)');
-      atmosphere.addColorStop(.28,'rgba(4,12,22,.02)');
-      atmosphere.addColorStop(.60,'rgba(4,12,22,.05)');
-      atmosphere.addColorStop(1,'rgba(4,12,22,.10)');
+      // Build the lower atmosphere with full-canvas feathered gradients so there is no visible top "line".
+      // These overlays all render across the full canvas and rely on transparency ramps, not hard rectangular starts.
+
+      // Very soft atmospheric darkening.
+      const atmosphere = ctx.createLinearGradient(0,0,0,1920);
+      atmosphere.addColorStop(0.00, 'rgba(4,12,22,0)');
+      atmosphere.addColorStop(0.52, 'rgba(4,12,22,0)');
+      atmosphere.addColorStop(0.66, 'rgba(4,12,22,.035)');
+      atmosphere.addColorStop(0.80, 'rgba(4,12,22,.10)');
+      atmosphere.addColorStop(1.00, 'rgba(4,12,22,.23)');
       ctx.fillStyle = atmosphere;
-      ctx.fillRect(0,980,1080,940);
+      ctx.fillRect(0,0,1080,1920);
 
-      // Soft luminous blue begins lower and builds gradually.
-      const blueLayer = ctx.createLinearGradient(0,1040,0,1920);
-      blueLayer.addColorStop(0, rgba(state.color1,0));
-      blueLayer.addColorStop(.18, rgba(state.color1,.018));
-      blueLayer.addColorStop(.34, rgba(state.color1,.055));
-      blueLayer.addColorStop(.56, rgba(state.color1,.125));
-      blueLayer.addColorStop(.76, rgba(state.color2,.23));
-      blueLayer.addColorStop(1, rgba(state.color2,.36));
+      // Broad feathered blue veil. This is the main anti-box layer.
+      const blueVeil = ctx.createRadialGradient(540,1450,120,540,1450,1180);
+      blueVeil.addColorStop(0.00, rgba(state.color1,.16));
+      blueVeil.addColorStop(0.28, rgba(state.color1,.12));
+      blueVeil.addColorStop(0.55, rgba(state.color1,.07));
+      blueVeil.addColorStop(0.78, rgba(state.color1,.028));
+      blueVeil.addColorStop(1.00, rgba(state.color1,0));
+      ctx.fillStyle = blueVeil;
+      ctx.fillRect(0,0,1080,1920);
+
+      // Main blue-to-navy build, but feathered from higher up with a long fade-in.
+      const blueLayer = ctx.createLinearGradient(0,0,0,1920);
+      blueLayer.addColorStop(0.00, rgba(state.color1,0));
+      blueLayer.addColorStop(0.54, rgba(state.color1,0));
+      blueLayer.addColorStop(0.64, rgba(state.color1,.030));
+      blueLayer.addColorStop(0.74, rgba(state.color1,.11));
+      blueLayer.addColorStop(0.86, rgba(state.color1,.22));
+      blueLayer.addColorStop(0.94, rgba(state.color2,.34));
+      blueLayer.addColorStop(1.00, rgba(state.color2,.56));
       ctx.fillStyle = blueLayer;
-      ctx.fillRect(0,1040,1080,880);
+      ctx.fillRect(0,0,1080,1920);
 
-      // Bottom navy reserved mostly for the anchor area only.
-      const bottomAnchor = ctx.createLinearGradient(0,1500,0,1920);
-      bottomAnchor.addColorStop(0, rgba(state.color2,0));
-      bottomAnchor.addColorStop(.34, rgba(state.color2,.14));
-      bottomAnchor.addColorStop(.70, rgba(state.color2,.36));
-      bottomAnchor.addColorStop(1, rgba(state.color2,.64));
+      // Lower blue core so the upper transition stays invisible.
+      const blueCore = ctx.createRadialGradient(485,1540,120,485,1540,760);
+      blueCore.addColorStop(0.00, rgba(state.color1,.22));
+      blueCore.addColorStop(0.34, rgba(state.color1,.14));
+      blueCore.addColorStop(0.68, rgba(state.color1,.05));
+      blueCore.addColorStop(1.00, rgba(state.color1,0));
+      ctx.fillStyle = blueCore;
+      ctx.fillRect(0,0,1080,1920);
+
+      // Bottom navy anchor, also full-canvas so it blends in gradually.
+      const bottomAnchor = ctx.createLinearGradient(0,0,0,1920);
+      bottomAnchor.addColorStop(0.00, rgba(state.color2,0));
+      bottomAnchor.addColorStop(0.70, rgba(state.color2,0));
+      bottomAnchor.addColorStop(0.82, rgba(state.color2,.18));
+      bottomAnchor.addColorStop(0.92, rgba(state.color2,.46));
+      bottomAnchor.addColorStop(1.00, rgba(state.color2,.80));
       ctx.fillStyle = bottomAnchor;
-      ctx.fillRect(0,1500,1080,420);
+      ctx.fillRect(0,0,1080,1920);
 
-      // Bloom effects.
-      const bloomLeft = ctx.createRadialGradient(250,1425,70,250,1425,455);
-      bloomLeft.addColorStop(0, rgba(state.color1,.25));
-      bloomLeft.addColorStop(.38, rgba(state.color1,.14));
-      bloomLeft.addColorStop(1, rgba(state.color1,0));
+      // Localized blooms to keep the mockup feel.
+      const bloomLeft = ctx.createRadialGradient(300,1470,55,300,1470,520);
+      bloomLeft.addColorStop(0.00, rgba(state.color1,.37));
+      bloomLeft.addColorStop(0.40, rgba(state.color1,.20));
+      bloomLeft.addColorStop(1.00, rgba(state.color1,0));
       ctx.fillStyle = bloomLeft;
-      ctx.fillRect(0,1060,640,720);
+      ctx.fillRect(0,0,1080,1920);
 
-      const bloomCenter = ctx.createRadialGradient(545,1420,140,545,1420,540);
-      bloomCenter.addColorStop(0, 'rgba(255,255,255,.045)');
-      bloomCenter.addColorStop(.30, rgba(state.color1,.08));
-      bloomCenter.addColorStop(1, 'rgba(255,255,255,0)');
+      const bloomCenter = ctx.createRadialGradient(560,1510,125,560,1510,640);
+      bloomCenter.addColorStop(0.00, 'rgba(255,255,255,.040)');
+      bloomCenter.addColorStop(0.30, rgba(state.color1,.15));
+      bloomCenter.addColorStop(1.00, 'rgba(255,255,255,0)');
       ctx.fillStyle = bloomCenter;
-      ctx.fillRect(0,1080,1080,760);
+      ctx.fillRect(0,0,1080,1920);
 
-      const bloomRight = ctx.createRadialGradient(855,1470,85,855,1470,430);
-      bloomRight.addColorStop(0, rgba(state.color1,.18));
-      bloomRight.addColorStop(.42, rgba(state.color1,.10));
-      bloomRight.addColorStop(1, rgba(state.color1,0));
+      const bloomRight = ctx.createRadialGradient(860,1545,70,860,1545,490);
+      bloomRight.addColorStop(0.00, rgba(state.color1,.24));
+      bloomRight.addColorStop(0.42, rgba(state.color1,.14));
+      bloomRight.addColorStop(1.00, rgba(state.color1,0));
       ctx.fillStyle = bloomRight;
-      ctx.fillRect(470,1100,610,700);
+      ctx.fillRect(0,0,1080,1920);
 
-      const leftX = SAFE_LEFT;
+      const leftX = 160;
       ctx.fillStyle = '#fff';
       ctx.textBaseline = 'alphabetic';
       ctx.textAlign = 'left';
@@ -693,60 +718,85 @@
       const city = ui.city.value.trim().toUpperCase();
       const citySize = fitText(city, 760, 34, 24, s=>`500 ${s}px Inter, Arial, sans-serif`);
       ctx.font = `500 ${citySize}px Inter, Arial, sans-serif`;
-      drawLetterSpacedLeft(city, leftX, 1160, 7.6);
+      drawLetterSpacedLeft(city, leftX, 1180, 6.2);
 
       const price = ui.price.value.trim();
-      const priceSize = fitText(price, 820, 118, 76, s=>`600 ${s}px "Libre Bodoni", Georgia, serif`);
+      const priceSize = fitText(price, 820, 112, 74, s=>`600 ${s}px "Libre Bodoni", Georgia, serif`);
       ctx.font = `600 ${priceSize}px "Libre Bodoni", Georgia, serif`;
-      ctx.fillText(price, leftX, 1280);
+      ctx.fillText(price, leftX, 1290);
 
       const headline = ui.headline.value.trim().toUpperCase();
       const headlineSize = fitText(headline, 940, 48, 28, s=>`800 ${s}px Inter, Arial, sans-serif`);
       ctx.font = `800 ${headlineSize}px Inter, Arial, sans-serif`;
-      ctx.fillText(headline, leftX, 1392);
+      ctx.fillText(headline, leftX, 1352);
 
       const detail = ui.detail.value.trim().toUpperCase();
       const detailSize = fitText(detail, 955, 24, 16, s=>`500 ${s}px Inter, Arial, sans-serif`);
       ctx.font = `500 ${detailSize}px Inter, Arial, sans-serif`;
-      drawLetterSpacedLeft(detail, leftX, 1450, 2.8);
+      drawLetterSpacedLeft(detail, leftX, 1410, 2.7);
 
-      // Button slightly higher to preserve bottom air.
+      // Frosted translucent button.
+      const bw = 838, bh = 96, bx = (1080-bw)/2, by = 1480;
+      const buttonFill = ctx.createLinearGradient(0, by, 0, by + bh);
+      buttonFill.addColorStop(0, 'rgba(255,255,255,.22)');
+      buttonFill.addColorStop(.48, 'rgba(255,255,255,.12)');
+      buttonFill.addColorStop(1, 'rgba(255,255,255,.18)');
+      roundedRect(bx,by,bw,bh,40);
+      ctx.fillStyle = buttonFill;
+      ctx.fill();
       ctx.strokeStyle = 'rgba(255,255,255,.95)';
       ctx.lineWidth = 3;
-      const bw = 838, bh = 80, bx = (1080-bw)/2, by = 1500;
       roundedRect(bx,by,bw,bh,40);
       ctx.stroke();
+      ctx.strokeStyle = 'rgba(255,255,255,.26)';
+      ctx.lineWidth = 1;
+      roundedRect(bx+5,by+5,bw-10,bh-10,35);
+      ctx.stroke();
+
 
       const cta = ui.cta.value.trim().toUpperCase();
       if(cta){
         ctx.fillStyle='#fff';
         ctx.font='700 25px Inter, Arial, sans-serif';
-        drawLetterSpacedCentered(cta, 540, 1552, 2);
+        drawLetterSpacedCentered(cta, 540, 1532, 2);
       }
 
-      // Brand block engineered backward from the bottom safe zone.
-      // Final phone baseline ends well above the exclusion area.
-      let brandY = 1608;
+      // Fixed-position branding block.
+      const logoTopY = 1566;
+      const nameY = 1762;
+      const phoneY = 1804;
+
       if(state.logo){
-        brandY = drawLogo(state.logo, 540, brandY, 760, 74) + 28;
+        drawLogo(state.logo, 540, logoTopY, 1100, 176);
       }
 
       ctx.textAlign = 'center';
+      ctx.fillStyle = 'rgba(255,255,255,.98)';
+      ctx.shadowColor = 'rgba(4,12,22,.28)';
+      ctx.shadowBlur = 10;
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 2;
 
       const agent = ui.agent.value.trim();
       if(agent){
-        const agentSize = fitText(agent, 850, 28, 22, s=>`500 ${s}px Inter, Arial, sans-serif`);
+        const agentSize = fitText(agent, 860, 24, 18, s=>`500 ${s}px Inter, Arial, sans-serif`);
         ctx.font = `500 ${agentSize}px Inter, Arial, sans-serif`;
-        ctx.fillText(agent, 540, brandY + 2);
-        brandY += 42;
+        ctx.fillStyle = 'rgba(255,255,255,.92)';
+        ctx.fillText(agent, 540, nameY);
       }
 
       const phone = ui.phone.value.trim();
       if(phone){
-        const phoneSize = fitText(phone, 760, 24, 19, s=>`500 ${s}px Inter, Arial, sans-serif`);
+        const phoneSize = fitText(phone, 760, 24, 18, s=>`500 ${s}px Inter, Arial, sans-serif`);
         ctx.font = `500 ${phoneSize}px Inter, Arial, sans-serif`;
-        drawLetterSpacedCentered(phone, 540, brandY + 2, 1.6);
+        ctx.fillStyle = 'rgba(255,255,255,.90)';
+        ctx.fillText(phone, 540, phoneY);
       }
+
+      ctx.shadowColor = 'transparent';
+      ctx.shadowBlur = 0;
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 0;
     }
 
     function applyTemplate(name){
@@ -764,7 +814,7 @@
 
     function applyColors(c1,c2){
       const a=sanitizeHex(c1)||'#103E68';
-      const b=sanitizeHex(c2)||'#071A2D';
+      const b=sanitizeHex(c2)||'#100B28';
       state.color1=a;
       state.color2=b;
       ui.color1Hex.value=a;
@@ -818,7 +868,7 @@
       state.offsetX=0;
       state.offsetY=0;
       applyTemplate('custom');
-      applyColors('#103E68','#071A2D');
+      applyColors('#103E68','#100B28');
       ui.agent.value='Michael Mechler, Broker Associate';
       ui.phone.value='(512) YES-2-OWN';
       setZoom(1);
@@ -880,7 +930,7 @@
       link.click();
     });
 
-    applyColors('#103E68','#071A2D');
+    applyColors('#103E68','#100B28');
     applyTemplate('custom');
     setZoom(1);
     document.fonts.ready.then(draw);
