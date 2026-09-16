@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#07192e" />
+  <meta name="description" content="Create polished 9:16 real estate Instagram Story graphics with ListingBuilder Story Builder." />
+  <title>Story Builder — ListingBuilder</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="ListingBuilder home">
+      <span class="brand-mark">LB</span>
+      <span class="brand-name">ListingBuilder</span>
+    </a>
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="/">Home</a>
+    </nav>
+    <a class="header-cta" href="#builder">Story Builder</a>
+  </header>
+
+  <main id="builder">
+    <section class="builder-shell" style="border-top:0;padding-top:58px;min-height:calc(100vh - 78px)">
+      <div class="builder-header">
+        <div>
+          <p class="kicker">LISTINGBUILDER / TOOL 01</p>
+          <h2>Story Builder</h2>
+          <p>Upload a property photo, add the listing details, and download a finished 9:16 Story.</p>
+        </div>
+        <div class="builder-status">
+          <span class="status-dot"></span>
+          Live preview
+        </div>
+      </div>
+
+      <div class="builder-grid">
+        <aside class="controls">
+          <div class="control-section">
+            <div class="control-heading"><span>01</span><h3>Property photo</h3></div>
+            <label class="upload-zone" for="propertyImage">
+              <input id="propertyImage" type="file" accept="image/*" />
+              <span class="upload-icon">↥</span>
+              <strong>Upload 9:16 property photo</strong>
+              <small>JPG, PNG, or WEBP</small>
+            </label>
+          </div>
+
+          <div class="control-section">
+            <div class="control-heading"><span>02</span><h3>Listing details</h3></div>
+            <label><span>City</span><input id="cityInput" type="text" value="AUSTIN" maxlength="28" /></label>
+            <label><span>Price</span><input id="priceInput" type="text" value="$749,000" maxlength="28" /></label>
+            <label><span>Incentive headline</span><input id="incentiveInput" type="text" value="+ 3% IN BUYER INCENTIVES" maxlength="48" /></label>
+            <label><span>Supporting line</span><input id="supportInput" type="text" value="LOW INTEREST RATE • CLOSING COSTS • AND MORE" maxlength="72" /></label>
+            <label><span>Button</span><input id="buttonInput" type="text" value="LEARN MORE" maxlength="24" /></label>
+          </div>
+
+          <div class="control-section">
+            <div class="control-heading"><span>03</span><h3>Branding</h3></div>
+            <label class="upload-zone compact" for="logoImage">
+              <input id="logoImage" type="file" accept="image/*" />
+              <span class="upload-icon">+</span>
+              <strong>Upload exact logo</strong>
+              <small>Transparent PNG recommended</small>
+            </label>
+            <label><span>Name + title</span><input id="agentInput" type="text" value="Michael Mechler, Broker Associate" maxlength="54" /></label>
+            <label><span>Phone</span><input id="phoneInput" type="text" value="(512) YES-2-OWN" maxlength="32" /></label>
+          </div>
+
+          <div class="control-section">
+            <div class="control-heading"><span>04</span><h3>Finish</h3></div>
+            <label><span>Photo position</span><input id="photoPosition" type="range" min="0" max="100" value="50" /></label>
+            <button id="downloadButton" class="download-button" type="button">Download PNG</button>
+            <p class="privacy-note">Everything is rendered in your browser. Your property photo is not uploaded to a server.</p>
+          </div>
+        </aside>
+
+        <div class="preview-column">
+          <div class="phone-frame">
+            <canvas id="storyCanvas" width="1080" height="1920" aria-label="Story preview"></canvas>
+          </div>
+          <div class="preview-meta"><span>1080 × 1920</span><span>PNG</span><span>Instagram Story</span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>
+      <a class="brand footer-brand" href="/">
+        <span class="brand-mark">LB</span>
+        <span class="brand-name">ListingBuilder</span>
+      </a>
+      <p>Real estate marketing tools built for speed, clarity, and better presentation.</p>
+    </div>
+    <div class="footer-right">
+      <p>© 2026 Mechler Ventures. All rights reserved.</p>
+      <p>ListingBuilder.com is owned and operated by Mechler Ventures.</p>
+    </div>
+  </footer>
+
+  <script src="../app.js"></script>
+</body>
+</html>
