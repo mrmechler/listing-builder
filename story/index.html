@@ -20,7 +20,6 @@
       --navy:#071a2d;
       --navy2:#103e68;
       --accent:#0b2d4e;
-      --radius:18px;
       --shadow:0 20px 60px rgba(17,32,46,.12);
     }
     *{box-sizing:border-box}
@@ -33,10 +32,10 @@
     .app{
       min-height:100vh;
       display:grid;
-      grid-template-columns:minmax(360px,460px) minmax(420px,1fr);
+      grid-template-columns:minmax(380px,470px) minmax(420px,1fr);
       gap:28px;
       padding:28px;
-      max-width:1560px;
+      max-width:1580px;
       margin:0 auto;
     }
     .panel,.stage{
@@ -60,253 +59,95 @@
       gap:16px;
       margin-bottom:22px;
     }
-    h1{
-      font-size:22px;
-      line-height:1.08;
-      letter-spacing:-.03em;
-      margin:0 0 8px;
-    }
-    .sub{
-      color:var(--muted);
-      font-size:13px;
-      line-height:1.5;
-      margin:0;
-    }
+    h1{font-size:22px;line-height:1.08;letter-spacing:-.03em;margin:0 0 8px}
+    .sub{color:var(--muted);font-size:13px;line-height:1.5;margin:0}
     .badge{
-      background:#eef3f7;
-      color:#425260;
-      border-radius:999px;
-      padding:7px 10px;
-      font-size:11px;
-      font-weight:800;
-      white-space:nowrap;
-      letter-spacing:.05em;
+      background:#eef3f7;color:#425260;border-radius:999px;padding:7px 10px;
+      font-size:11px;font-weight:800;white-space:nowrap;letter-spacing:.05em;
     }
-    .group{
-      padding:18px 0;
-      border-top:1px solid var(--line);
-    }
+    .group{padding:18px 0;border-top:1px solid var(--line)}
     .group:first-of-type{border-top:none;padding-top:4px}
     .group-title{
-      font-size:12px;
-      font-weight:800;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      margin:0 0 12px;
-      color:#3f4d59;
+      font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+      margin:0 0 12px;color:#3f4d59;
     }
-    label{
-      display:block;
-      font-size:12px;
-      font-weight:700;
-      margin:12px 0 6px;
-    }
+    label{display:block;font-size:12px;font-weight:700;margin:12px 0 6px}
     input[type="text"], input[type="file"]{
-      width:100%;
-      border:1px solid #cfd8df;
-      border-radius:11px;
-      padding:11px 12px;
-      font:inherit;
-      color:var(--ink);
-      background:#fff;
-      outline:none;
+      width:100%;border:1px solid #cfd8df;border-radius:11px;padding:11px 12px;
+      font:inherit;color:var(--ink);background:#fff;outline:none;
     }
     input[type="text"]:focus{
-      border-color:#7d96aa;
-      box-shadow:0 0 0 3px rgba(16,62,104,.08);
+      border-color:#7d96aa;box-shadow:0 0 0 3px rgba(16,62,104,.08);
     }
-    input[type="range"]{
-      width:100%;
-      accent-color:var(--accent);
+    input[type="range"]{width:100%;accent-color:var(--accent)}
+    .inline{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .template-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .template-btn{
+      background:#f7fafc;color:#23323f;border:1px solid #d6dfe7;border-radius:12px;
+      padding:12px;text-align:center;font-size:13px;font-weight:800;cursor:pointer;
     }
-    .inline{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
+    .template-btn.active{background:#0b2d4e;border-color:#0b2d4e;color:#fff}
+    .zoom-row{
+      display:grid;grid-template-columns:48px 1fr 48px 76px;
+      gap:10px;align-items:center;margin-top:6px
     }
-    .color-grid{
-      display:grid;
-      grid-template-columns:80px 1fr;
-      gap:10px 12px;
-      align-items:end;
+    .icon-btn{
+      background:#eef2f5;color:#23323f;border-radius:12px;border:0;height:44px;
+      font-size:22px;font-weight:700;cursor:pointer;
     }
+    .value-chip{
+      display:flex;align-items:center;justify-content:center;height:44px;border-radius:12px;
+      border:1px solid #d6dfe7;background:#f8fafb;color:#40515f;font-weight:700;font-size:13px;
+    }
+    .button-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+    button{
+      appearance:none;border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:800;
+      cursor:pointer;transition:.15s ease;
+    }
+    button:hover{transform:translateY(-1px)}
+    .secondary{background:#eef2f5;color:#23323f}
+    .color-grid{display:grid;grid-template-columns:80px 1fr;gap:10px 12px;align-items:end}
     .swatch{
-      width:100%;
-      height:46px;
-      border:1px solid #cfd8df;
-      border-radius:11px;
-      background:#103e68;
-      padding:0;
-      overflow:hidden;
-      cursor:pointer;
+      width:100%;height:46px;border:1px solid #cfd8df;border-radius:11px;background:#103e68;
+      padding:0;overflow:hidden;cursor:pointer;
     }
     .swatch::-webkit-color-swatch-wrapper{padding:0}
     .swatch::-webkit-color-swatch{border:none;border-radius:10px}
     .swatch::-moz-color-swatch{border:none;border-radius:10px}
     .pill{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-height:46px;
-      padding:0 12px;
-      border:1px solid #cfd8df;
-      border-radius:11px;
-      background:#f8fafb;
-      color:#41505d;
-      font-size:12px;
-      font-weight:700;
-      white-space:nowrap;
+      display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 12px;
+      border:1px solid #cfd8df;border-radius:11px;background:#f8fafb;color:#41505d;
+      font-size:12px;font-weight:700;white-space:nowrap;
     }
-    .template-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-    }
-    .template-btn{
-      background:#f7fafc;
-      color:#23323f;
-      border:1px solid #d6dfe7;
-      border-radius:12px;
-      padding:12px;
-      text-align:center;
-      font-size:13px;
-      font-weight:800;
-      letter-spacing:.03em;
-      cursor:pointer;
-    }
-    .template-btn.active{
-      background:#0b2d4e;
-      border-color:#0b2d4e;
-      color:#fff;
-    }
-    .zoom-row{
-      display:grid;
-      grid-template-columns:48px 1fr 48px 76px;
-      gap:10px;
-      align-items:center;
-      margin-top:6px;
-    }
-    .icon-btn{
-      background:#eef2f5;
-      color:#23323f;
-      border-radius:12px;
-      border:0;
-      height:44px;
-      font-size:22px;
-      font-weight:700;
-      cursor:pointer;
-    }
-    .value-chip{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      height:44px;
-      border-radius:12px;
-      border:1px solid #d6dfe7;
-      background:#f8fafb;
-      color:#40515f;
-      font-weight:700;
-      font-size:13px;
-    }
-    .button-row{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-      margin-top:14px;
-    }
-    button{
-      appearance:none;
-      border:0;
-      border-radius:12px;
-      padding:12px 14px;
-      font:inherit;
-      font-weight:800;
-      cursor:pointer;
-      transition:.15s ease;
-    }
-    button:hover{transform:translateY(-1px)}
-    .secondary{
-      background:#eef2f5;
-      color:#23323f;
-    }
+    .safe{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;color:#425260}
+    .safe input{accent-color:var(--accent)}
     .download{
-      width:100%;
-      margin-top:10px;
-      padding:14px 16px;
-      background:linear-gradient(135deg,var(--navy),var(--navy2));
-      color:#fff;
-      font-size:15px;
+      width:100%;margin-top:10px;padding:14px 16px;
+      background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;font-size:15px;
     }
-    .hint{
-      margin:8px 0 0;
-      font-size:11px;
-      color:var(--muted);
-      line-height:1.45;
-    }
+    .hint{margin:8px 0 0;font-size:11px;color:var(--muted);line-height:1.45}
     .stage{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:28px;
-      min-height:calc(100vh - 56px);
-      overflow:hidden;
-      background:
-        radial-gradient(circle at 50% 0%,rgba(16,62,104,.08),transparent 45%),
-        #fff;
+      display:flex;align-items:center;justify-content:center;padding:28px;
+      min-height:calc(100vh - 56px);overflow:hidden;
+      background:radial-gradient(circle at 50% 0%,rgba(16,62,104,.08),transparent 45%),#fff;
     }
     .canvas-shell{
-      position:relative;
-      width:min(100%,480px);
-      aspect-ratio:9/16;
-      background:#101820;
-      border-radius:24px;
-      overflow:hidden;
-      box-shadow:0 30px 70px rgba(0,0,0,.22);
-      user-select:none;
-      touch-action:none;
+      position:relative;width:min(100%,480px);aspect-ratio:9/16;background:#101820;
+      border-radius:24px;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.22);
+      user-select:none;touch-action:none;
     }
-    canvas{
-      width:100%;
-      height:100%;
-      display:block;
-      cursor:grab;
-    }
+    canvas{width:100%;height:100%;display:block;cursor:grab}
     canvas.dragging{cursor:grabbing}
     .empty{
-      position:absolute;
-      inset:0;
-      display:grid;
-      place-items:center;
-      padding:36px;
-      color:#fff;
-      text-align:center;
-      pointer-events:none;
-      background:linear-gradient(180deg,#24384a,#0d1d2b);
+      position:absolute;inset:0;display:grid;place-items:center;padding:36px;color:#fff;text-align:center;
+      pointer-events:none;background:linear-gradient(180deg,#24384a,#0d1d2b);
     }
     .empty strong{display:block;font-size:18px;margin-bottom:8px}
     .empty span{font-size:13px;opacity:.75}
-    .safe{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      margin-top:10px;
-      font-size:12px;
-      color:#425260;
-    }
-    .safe input{accent-color:var(--accent)}
     @media (max-width:980px){
-      .app{
-        grid-template-columns:1fr;
-        padding:16px;
-      }
-      .panel{
-        position:static;
-        max-height:none;
-      }
-      .stage{
-        min-height:auto;
-        padding:18px;
-      }
+      .app{grid-template-columns:1fr;padding:16px}
+      .panel{position:static;max-height:none}
+      .stage{min-height:auto;padding:18px}
       .canvas-shell{width:min(100%,420px)}
     }
   </style>
@@ -317,7 +158,7 @@
       <div class="brand">
         <div>
           <h1>Story Generator</h1>
-          <p class="sub">Choose a template, upload a property photo, position it, customize the content, and export a finished 1080 × 1920 Story PNG.</p>
+          <p class="sub">This version is tuned to match your reference layout much more closely: lower-third composition, softer blue glow, wide capsule button, and stacked branding beneath the logo row.</p>
         </div>
         <div class="badge">9:16</div>
       </div>
@@ -330,7 +171,7 @@
           <button type="button" class="template-btn" data-template="seller-financing">Seller Financing</button>
           <button type="button" class="template-btn" data-template="open-house">Open House</button>
         </div>
-        <p class="hint">Each template loads a locked starting point that you can still customize.</p>
+        <p class="hint">Templates change the default wording only. The output design stays locked.</p>
       </div>
 
       <div class="group">
@@ -350,42 +191,42 @@
           <button class="secondary" id="centerPhoto" type="button">Center photo</button>
           <button class="secondary" id="resetAll" type="button">Reset all</button>
         </div>
-        <p class="hint">Zoom works with the slider, the + / − buttons, mouse wheel, and trackpad. Drag directly on the preview to reposition the image.</p>
+        <p class="hint">Use the slider, + / −, or mouse wheel / trackpad. Drag directly on the preview to reposition the image.</p>
       </div>
 
       <div class="group">
-        <div class="group-title">3. Property details</div>
+        <div class="group-title">3. Content</div>
         <div class="inline">
           <div>
             <label for="city">City</label>
-            <input id="city" type="text" value="AUSTIN, TX" />
+            <input id="city" type="text" value="LIBERTY HILL" />
           </div>
           <div>
             <label for="price">Price</label>
-            <input id="price" type="text" value="$499,000" />
+            <input id="price" type="text" value="$275,890" />
           </div>
         </div>
 
-        <label for="incentive">Headline</label>
-        <input id="incentive" type="text" value="+ 3% IN BUYER INCENTIVES" />
+        <label for="headline">Headline</label>
+        <input id="headline" type="text" value="+ 3% IN BUYER INCENTIVES" />
 
         <label for="detail">Detail line</label>
-        <input id="detail" type="text" value="LOW INTEREST RATE • CLOSING COSTS • AND MORE" />
+        <input id="detail" type="text" value="LOW INTEREST RATE • CLOSINGS COSTS • AND MORE" />
 
-        <label for="cta">Button text</label>
-        <input id="cta" type="text" value="VIEW HOME" />
+        <label for="cta">Button text (optional)</label>
+        <input id="cta" type="text" value="" placeholder="Leave blank for the empty outlined button look" />
       </div>
 
       <div class="group">
         <div class="group-title">4. Gradient colors</div>
 
-        <label for="color1Hex">Top gradient hex</label>
+        <label for="color1Hex">Top glow hex</label>
         <div class="color-grid">
           <input id="color1Picker" class="swatch" type="color" value="#103E68" />
           <input id="color1Hex" type="text" value="#103E68" />
         </div>
 
-        <label for="color2Hex">Bottom gradient hex</label>
+        <label for="color2Hex">Bottom navy hex</label>
         <div class="color-grid">
           <input id="color2Picker" class="swatch" type="color" value="#071A2D" />
           <input id="color2Hex" type="text" value="#071A2D" />
@@ -393,14 +234,15 @@
 
         <label>Current gradient</label>
         <div class="pill" id="appliedGradient">#103E68 → #071A2D</div>
-
-        <p class="hint">Defaults use a dark-blue system. Change both hex values if you want a different gradient.</p>
       </div>
 
       <div class="group">
         <div class="group-title">5. Branding</div>
-        <label for="logoInput">Upload your exact logo</label>
-        <input id="logoInput" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" />
+        <label for="leftLogoInput">Left logo upload</label>
+        <input id="leftLogoInput" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" />
+
+        <label for="rightLogoInput">Right logo upload</label>
+        <input id="rightLogoInput" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" />
 
         <label for="agent">Name line</label>
         <input id="agent" type="text" value="Michael Mechler, Broker Associate" />
@@ -412,11 +254,10 @@
           <input id="safeGuides" type="checkbox" />
           <label for="safeGuides" style="margin:0;font-weight:700">Show safe-zone guides</label>
         </div>
-        <p class="hint">Safe-zone guides only appear in the preview. They are automatically excluded from the downloaded PNG.</p>
+        <p class="hint">The guide overlay is preview-only and never exports. Logo row is left logo • divider • right logo, with your name and phone below.</p>
       </div>
 
       <button class="download" id="download" type="button">DOWNLOAD STORY PNG</button>
-      <p class="hint">Everything runs locally in the browser. Host this as a static page on GitHub Pages.</p>
     </section>
 
     <section class="stage">
@@ -425,7 +266,7 @@
         <div class="empty" id="emptyState">
           <div>
             <strong>Upload a property photo</strong>
-            <span>Your finished Story will appear here.</span>
+            <span>The output will be generated here.</span>
           </div>
         </div>
       </div>
@@ -435,240 +276,155 @@
   <script>
     const TEMPLATES = {
       'for-sale': {
-        badge: 'FOR SALE',
-        city: 'AUSTIN, TX',
-        price: '$499,000',
-        incentive: '+ 3% IN BUYER INCENTIVES',
-        detail: 'LOW INTEREST RATE • CLOSING COSTS • AND MORE',
-        cta: 'VIEW HOME'
+        city:'LIBERTY HILL',
+        price:'$275,890',
+        headline:'+ 3% IN BUYER INCENTIVES',
+        detail:'LOW INTEREST RATE • CLOSINGS COSTS • AND MORE',
+        cta:''
       },
       'for-lease': {
-        badge: 'FOR LEASE',
-        city: 'AUSTIN, TX',
-        price: '$2,995/MO',
-        incentive: 'AVAILABLE NOW',
-        detail: 'LEASE INCENTIVES • FLEXIBLE TERMS • AND MORE',
-        cta: 'SCHEDULE TOUR'
+        city:'AUSTIN',
+        price:'$2,995/MO',
+        headline:'AVAILABLE FOR LEASE',
+        detail:'MOVE-IN READY • FLEXIBLE TERMS • AND MORE',
+        cta:''
       },
       'seller-financing': {
-        badge: 'SELLER FINANCING',
-        city: 'AUSTIN, TX',
-        price: '$499,000',
-        incentive: 'BETTER WAY HOME',
-        detail: 'LOWER UPFRONT COSTS • FLEXIBLE TERMS • AND MORE',
-        cta: 'LEARN MORE'
+        city:'AUSTIN',
+        price:'$499,000',
+        headline:'SELLER FINANCING AVAILABLE',
+        detail:'LOWER RATE • FLEXIBLE TERMS • AND MORE',
+        cta:''
       },
       'open-house': {
-        badge: 'OPEN HOUSE',
-        city: 'AUSTIN, TX',
-        price: '$499,000',
-        incentive: 'SATURDAY • 12–2 PM',
-        detail: 'COME SEE IT IN PERSON',
-        cta: 'GET DIRECTIONS'
+        city:'AUSTIN',
+        price:'$499,000',
+        headline:'OPEN HOUSE • SATURDAY 12–2',
+        detail:'COME SEE IT IN PERSON',
+        cta:''
       }
     };
 
     const canvas = document.getElementById('storyCanvas');
-    const ctx = canvas.getContext('2d', { alpha: false });
+    const ctx = canvas.getContext('2d', { alpha:false });
 
     const ui = {
-      photoInput: document.getElementById('photoInput'),
-      logoInput: document.getElementById('logoInput'),
-      zoom: document.getElementById('zoom'),
-      zoomIn: document.getElementById('zoomIn'),
-      zoomOut: document.getElementById('zoomOut'),
-      zoomValue: document.getElementById('zoomValue'),
-      city: document.getElementById('city'),
-      price: document.getElementById('price'),
-      incentive: document.getElementById('incentive'),
-      detail: document.getElementById('detail'),
-      cta: document.getElementById('cta'),
-      agent: document.getElementById('agent'),
-      phone: document.getElementById('phone'),
-      color1Picker: document.getElementById('color1Picker'),
-      color2Picker: document.getElementById('color2Picker'),
-      color1Hex: document.getElementById('color1Hex'),
-      color2Hex: document.getElementById('color2Hex'),
-      appliedGradient: document.getElementById('appliedGradient'),
-      centerPhoto: document.getElementById('centerPhoto'),
-      resetAll: document.getElementById('resetAll'),
-      download: document.getElementById('download'),
-      safeGuides: document.getElementById('safeGuides'),
-      emptyState: document.getElementById('emptyState'),
-      templateButtons: Array.from(document.querySelectorAll('.template-btn'))
+      photoInput:document.getElementById('photoInput'),
+      leftLogoInput:document.getElementById('leftLogoInput'),
+      rightLogoInput:document.getElementById('rightLogoInput'),
+      zoom:document.getElementById('zoom'),
+      zoomIn:document.getElementById('zoomIn'),
+      zoomOut:document.getElementById('zoomOut'),
+      zoomValue:document.getElementById('zoomValue'),
+      city:document.getElementById('city'),
+      price:document.getElementById('price'),
+      headline:document.getElementById('headline'),
+      detail:document.getElementById('detail'),
+      cta:document.getElementById('cta'),
+      agent:document.getElementById('agent'),
+      phone:document.getElementById('phone'),
+      color1Picker:document.getElementById('color1Picker'),
+      color2Picker:document.getElementById('color2Picker'),
+      color1Hex:document.getElementById('color1Hex'),
+      color2Hex:document.getElementById('color2Hex'),
+      appliedGradient:document.getElementById('appliedGradient'),
+      centerPhoto:document.getElementById('centerPhoto'),
+      resetAll:document.getElementById('resetAll'),
+      download:document.getElementById('download'),
+      safeGuides:document.getElementById('safeGuides'),
+      emptyState:document.getElementById('emptyState'),
+      templateButtons:Array.from(document.querySelectorAll('.template-btn'))
     };
 
     const state = {
-      currentTemplate: 'for-sale',
-      photo: null,
-      logo: null,
-      zoom: 1,
-      offsetX: 0,
-      offsetY: 0,
-      dragging: false,
-      lastX: 0,
-      lastY: 0,
-      color1: '#103E68',
-      color2: '#071A2D'
+      currentTemplate:'for-sale',
+      photo:null,
+      leftLogo:null,
+      rightLogo:null,
+      zoom:1,
+      offsetX:0,
+      offsetY:0,
+      dragging:false,
+      lastX:0,
+      lastY:0,
+      color1:'#103E68',
+      color2:'#071A2D'
     };
 
-    const DEFAULT_BRANDING = {
-      agent: 'Michael Mechler, Broker Associate',
-      phone: '(512) YES-2-OWN'
-    };
-
-    const DEFAULT_COLORS = {
-      color1: '#103E68',
-      color2: '#071A2D'
-    };
-
-    document.fonts.ready.then(() => draw());
-
-    function loadImageFromFile(file, done) {
-      if (!file) return;
-      const url = URL.createObjectURL(file);
-      const img = new Image();
-      img.onload = () => {
-        URL.revokeObjectURL(url);
-        done(img);
-      };
-      img.src = url;
+    function loadImageFromFile(file, done){
+      if(!file) return;
+      const url=URL.createObjectURL(file);
+      const img=new Image();
+      img.onload=()=>{URL.revokeObjectURL(url);done(img)};
+      img.src=url;
     }
 
-    function sanitizeHex(value) {
-      let v = (value || '').trim().toUpperCase();
-      if (!v.startsWith('#')) v = '#' + v;
-      if (/^#([0-9A-F]{3})$/.test(v)) {
-        v = '#' + v.slice(1).split('').map(ch => ch + ch).join('');
-      }
-      if (!/^#([0-9A-F]{6})$/.test(v)) return null;
-      return v;
+    function sanitizeHex(value){
+      let v=(value||'').trim().toUpperCase();
+      if(!v.startsWith('#')) v='#'+v;
+      if(/^#([0-9A-F]{3})$/.test(v)) v='#'+v.slice(1).split('').map(c=>c+c).join('');
+      return /^#([0-9A-F]{6})$/.test(v)?v:null;
     }
 
-    function hexToRgb(hex) {
-      const clean = sanitizeHex(hex);
-      if (!clean) return null;
-      return {
-        r: parseInt(clean.slice(1,3), 16),
-        g: parseInt(clean.slice(3,5), 16),
-        b: parseInt(clean.slice(5,7), 16)
-      };
+    function hexToRgb(hex){
+      const c=sanitizeHex(hex);
+      if(!c) return null;
+      return {r:parseInt(c.slice(1,3),16),g:parseInt(c.slice(3,5),16),b:parseInt(c.slice(5,7),16)};
     }
 
-    function rgba(hex, alpha) {
-      const rgb = hexToRgb(hex);
-      if (!rgb) return `rgba(16,62,104,${alpha})`;
-      return `rgba(${rgb.r},${rgb.g},${rgb.b},${alpha})`;
+    function rgba(hex,a){
+      const rgb=hexToRgb(hex);
+      return rgb?`rgba(${rgb.r},${rgb.g},${rgb.b},${a})`:`rgba(16,62,104,${a})`;
     }
 
-    function darkenHex(hex, amount) {
-      const rgb = hexToRgb(hex);
-      if (!rgb) return '#071A2D';
-      const clamp = v => Math.max(0, Math.min(255, Math.round(v)));
-      const factor = 1 - amount;
-      const r = clamp(rgb.r * factor);
-      const g = clamp(rgb.g * factor);
-      const b = clamp(rgb.b * factor);
-      return '#' + [r,g,b].map(v => v.toString(16).padStart(2,'0')).join('').toUpperCase();
-    }
-
-    function lightenHex(hex, amount) {
-      const rgb = hexToRgb(hex);
-      if (!rgb) return '#3A6488';
-      const clamp = v => Math.max(0, Math.min(255, Math.round(v)));
-      const r = clamp(rgb.r + (255 - rgb.r) * amount);
-      const g = clamp(rgb.g + (255 - rgb.g) * amount);
-      const b = clamp(rgb.b + (255 - rgb.b) * amount);
-      return '#' + [r,g,b].map(v => v.toString(16).padStart(2,'0')).join('').toUpperCase();
-    }
-
-    function applyGradientColors(hex1, hex2) {
-      const clean1 = sanitizeHex(hex1) || DEFAULT_COLORS.color1;
-      const clean2 = sanitizeHex(hex2) || DEFAULT_COLORS.color2;
-      state.color1 = clean1;
-      state.color2 = clean2;
-
-      ui.color1Hex.value = clean1;
-      ui.color2Hex.value = clean2;
-      ui.color1Picker.value = clean1;
-      ui.color2Picker.value = clean2;
-      ui.appliedGradient.textContent = `${clean1} → ${clean2}`;
-      ui.appliedGradient.style.background = `linear-gradient(90deg, ${clean1}22, ${clean2}33)`;
-      ui.appliedGradient.style.borderColor = clean1 + '40';
-      ui.appliedGradient.style.color = darkenHex(clean2, 0.1);
-
-      const btn1 = lightenHex(clean1, 0.04);
-      const btn2 = darkenHex(clean2, 0.04);
-      document.querySelector('.download').style.background = `linear-gradient(135deg, ${btn2}, ${btn1})`;
-      document.documentElement.style.setProperty('--accent', darkenHex(clean2, 0.18));
-    }
-
-    function setZoomValue(v) {
-      state.zoom = Math.max(1, Math.min(2.25, v));
-      ui.zoom.value = state.zoom.toFixed(2);
-      ui.zoomValue.textContent = `${Math.round(state.zoom * 100)}%`;
+    function setZoom(v){
+      state.zoom=Math.max(1,Math.min(2.25,v));
+      ui.zoom.value=state.zoom;
+      ui.zoomValue.textContent=`${Math.round(state.zoom*100)}%`;
       clampOffsets();
       draw();
     }
 
-    function applyTemplate(name) {
-      const tpl = TEMPLATES[name];
-      if (!tpl) return;
-      state.currentTemplate = name;
-
-      ui.templateButtons.forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.template === name);
-      });
-
-      ui.city.value = tpl.city;
-      ui.price.value = tpl.price;
-      ui.incentive.value = tpl.incentive;
-      ui.detail.value = tpl.detail;
-      ui.cta.value = tpl.cta;
-
-      draw();
+    function coverMetrics(img){
+      const base=Math.max(canvas.width/img.width,canvas.height/img.height);
+      const scale=base*state.zoom;
+      const w=img.width*scale;
+      const h=img.height*scale;
+      return {w,h,x:(canvas.width-w)/2+state.offsetX,y:(canvas.height-h)/2+state.offsetY};
     }
 
-    function coverMetrics(img) {
-      const base = Math.max(canvas.width / img.width, canvas.height / img.height);
-      const scale = base * state.zoom;
-      const w = img.width * scale;
-      const h = img.height * scale;
-      return { scale, w, h, x:(canvas.width - w)/2 + state.offsetX, y:(canvas.height - h)/2 + state.offsetY };
+    function clampOffsets(){
+      if(!state.photo) return;
+      const m=coverMetrics(state.photo);
+      const maxX=Math.max(0,(m.w-canvas.width)/2);
+      const maxY=Math.max(0,(m.h-canvas.height)/2);
+      state.offsetX=Math.max(-maxX,Math.min(maxX,state.offsetX));
+      state.offsetY=Math.max(-maxY,Math.min(maxY,state.offsetY));
     }
 
-    function clampOffsets() {
-      if (!state.photo) return;
-      const m = coverMetrics(state.photo);
-      const maxX = Math.max(0, (m.w - canvas.width) / 2);
-      const maxY = Math.max(0, (m.h - canvas.height) / 2);
-      state.offsetX = Math.max(-maxX, Math.min(maxX, state.offsetX));
-      state.offsetY = Math.max(-maxY, Math.min(maxY, state.offsetY));
-    }
-
-    function fitText(text, maxWidth, startSize, minSize, fontSpecBuilder) {
-      let size = startSize;
-      while (size > minSize) {
-        ctx.font = fontSpecBuilder(size);
-        if (ctx.measureText(text).width <= maxWidth) return size;
-        size -= 2;
+    function fitText(text,maxWidth,startSize,minSize,fontBuilder){
+      let size=startSize;
+      while(size>minSize){
+        ctx.font=fontBuilder(size);
+        if(ctx.measureText(text).width<=maxWidth) return size;
+        size-=2;
       }
       return minSize;
     }
 
-    function drawLetterSpacedText(text, x, y, spacing, align='center') {
-      const chars = [...text];
-      const widths = chars.map(ch => ctx.measureText(ch).width);
-      const total = widths.reduce((a,b)=>a+b,0) + spacing * Math.max(0, chars.length - 1);
-      let cursor = align === 'center' ? x - total/2 : x;
-      for (let i=0; i<chars.length; i++) {
-        ctx.fillText(chars[i], cursor, y);
-        cursor += widths[i] + spacing;
+    function drawLetterSpacedText(text,x,y,spacing){
+      const chars=[...text];
+      const widths=chars.map(ch=>ctx.measureText(ch).width);
+      const total=widths.reduce((a,b)=>a+b,0)+spacing*Math.max(0,chars.length-1);
+      let cursor=x-total/2;
+      for(let i=0;i<chars.length;i++){
+        ctx.fillText(chars[i],cursor,y);
+        cursor+=widths[i]+spacing;
       }
     }
 
-    function roundedRect(x,y,w,h,r) {
-      const rr = Math.min(r,w/2,h/2);
+    function roundedRect(x,y,w,h,r){
+      const rr=Math.min(r,w/2,h/2);
       ctx.beginPath();
       ctx.moveTo(x+rr,y);
       ctx.arcTo(x+w,y,x+w,y+h,rr);
@@ -678,348 +434,311 @@
       ctx.closePath();
     }
 
-    function drawLogo(img, centerX, topY, maxW, maxH) {
-      if (!img) return topY;
-      const scale = Math.min(maxW / img.width, maxH / img.height, 1);
-      const w = img.width * scale;
-      const h = img.height * scale;
-      ctx.drawImage(img, centerX - w/2, topY, w, h);
-      return topY + h;
+    function drawLogo(img, centerX, topY, maxW, maxH){
+      if(!img) return {w:0,h:0,y:topY};
+      const scale=Math.min(maxW/img.width, maxH/img.height, 1);
+      const w=img.width*scale, h=img.height*scale;
+      ctx.drawImage(img, centerX-w/2, topY, w, h);
+      return {w,h,y:topY+h};
     }
 
-    function drawTemplateBadge(text) {
-      if (!text) return;
+    function drawSafeGuides(){
+      if(!ui.safeGuides.checked) return;
       ctx.save();
-      ctx.font = '700 22px Inter, Arial, sans-serif';
-      const width = ctx.measureText(text).width;
-      const padX = 22;
-      const boxW = width + padX * 2;
-      const boxH = 50;
-      const x = 540 - boxW/2;
-      const y = 1038;
-      ctx.strokeStyle = 'rgba(255,255,255,.95)';
-      ctx.lineWidth = 2;
-      roundedRect(x, y, boxW, boxH, 8);
-      ctx.stroke();
-      ctx.fillStyle = '#fff';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(text, 540, y + boxH/2 + 1);
-      ctx.restore();
-    }
-
-    function drawSafeGuides() {
-      if (!ui.safeGuides.checked) return;
-      ctx.save();
-
-      ctx.lineWidth = 2;
-      ctx.setLineDash([10, 10]);
-      ctx.strokeStyle = 'rgba(255,255,255,.80)';
-      ctx.strokeRect(54, 120, 972, 1680);
-
-      ctx.strokeStyle = 'rgba(255,255,255,.60)';
-      ctx.strokeRect(88, 250, 904, 1420);
-
-      ctx.setLineDash([8,8]);
-      ctx.strokeStyle = 'rgba(255,255,255,.55)';
-      ctx.beginPath();
-      ctx.moveTo(88, 250);
-      ctx.lineTo(992, 250);
-      ctx.moveTo(88, 1670);
-      ctx.lineTo(992, 1670);
-      ctx.stroke();
+      ctx.setLineDash([10,10]);
+      ctx.lineWidth=2;
+      ctx.strokeStyle='rgba(255,255,255,.78)';
+      ctx.strokeRect(54,120,972,1680);
+      ctx.strokeStyle='rgba(255,255,255,.58)';
+      ctx.strokeRect(88,250,904,1420);
 
       ctx.setLineDash([]);
-      ctx.fillStyle = 'rgba(11,25,40,.70)';
-      roundedRect(92, 188, 190, 40, 8);
-      ctx.fill();
-      roundedRect(92, 1688, 236, 40, 8);
-      ctx.fill();
-
-      ctx.fillStyle = 'rgba(255,255,255,.96)';
-      ctx.font = '700 18px Inter, Arial, sans-serif';
-      ctx.textAlign = 'left';
-      ctx.textBaseline = 'middle';
-      ctx.fillText('Top safe zone', 108, 208);
-      ctx.fillText('Bottom safe zone', 108, 1708);
-
+      ctx.fillStyle='rgba(12,24,36,.72)';
+      roundedRect(92, 188, 210, 40, 8); ctx.fill();
+      roundedRect(92, 1688, 248, 40, 8); ctx.fill();
+      ctx.fillStyle='rgba(255,255,255,.96)';
+      ctx.font='700 18px Inter, Arial, sans-serif';
+      ctx.textAlign='left';
+      ctx.textBaseline='middle';
+      ctx.fillText('Top safe zone',108,208);
+      ctx.fillText('Bottom safe zone',108,1708);
       ctx.restore();
     }
 
-    function draw() {
+    function draw(){
       ctx.clearRect(0,0,canvas.width,canvas.height);
 
-      if (!state.photo) {
-        ctx.fillStyle = '#112536';
+      if(state.photo){
+        clampOffsets();
+        const m=coverMetrics(state.photo);
+        ctx.drawImage(state.photo,m.x,m.y,m.w,m.h);
+      } else {
+        ctx.fillStyle='#000';
         ctx.fillRect(0,0,canvas.width,canvas.height);
-        return;
       }
 
-      clampOffsets();
-      const m = coverMetrics(state.photo);
-      ctx.drawImage(state.photo, m.x, m.y, m.w, m.h);
-
-      const topWash = ctx.createLinearGradient(0,0,0,canvas.height);
-      topWash.addColorStop(0,'rgba(0,0,0,.02)');
-      topWash.addColorStop(.48,'rgba(0,0,0,.05)');
-      topWash.addColorStop(.63,'rgba(0,0,0,.11)');
-      topWash.addColorStop(.74,'rgba(5,15,26,.25)');
-      topWash.addColorStop(1,'rgba(5,15,26,.40)');
-      ctx.fillStyle = topWash;
+      // Overall subtle wash
+      const wash=ctx.createLinearGradient(0,0,0,canvas.height);
+      wash.addColorStop(0,'rgba(0,0,0,.05)');
+      wash.addColorStop(.50,'rgba(0,0,0,.08)');
+      wash.addColorStop(.72,'rgba(5,11,18,.14)');
+      wash.addColorStop(1,'rgba(2,8,14,.26)');
+      ctx.fillStyle=wash;
       ctx.fillRect(0,0,canvas.width,canvas.height);
 
-      const blue = ctx.createLinearGradient(0,980,0,1920);
-      blue.addColorStop(0, rgba(state.color1,0));
-      blue.addColorStop(.20, rgba(state.color1,0.03));
-      blue.addColorStop(.43, rgba(state.color1,0.14));
-      blue.addColorStop(.63, rgba(state.color1,0.42));
-      blue.addColorStop(.80, rgba(state.color2,0.78));
-      blue.addColorStop(1, rgba(state.color2,0.97));
-      ctx.fillStyle = blue;
-      ctx.fillRect(0,980,1080,940);
+      // Main lower-third base gradient
+      const grad=ctx.createLinearGradient(0,900,0,1920);
+      grad.addColorStop(0, rgba(state.color1,0));
+      grad.addColorStop(.15, rgba(state.color1,.04));
+      grad.addColorStop(.32, rgba(state.color1,.16));
+      grad.addColorStop(.53, rgba(state.color1,.33));
+      grad.addColorStop(.74, rgba(state.color2,.64));
+      grad.addColorStop(1, rgba(state.color2,.90));
+      ctx.fillStyle=grad;
+      ctx.fillRect(0,900,1080,1020);
 
-      const centerGlow = ctx.createRadialGradient(540,1290,80,540,1290,720);
-      centerGlow.addColorStop(0,'rgba(255,255,255,.05)');
-      centerGlow.addColorStop(1,'rgba(255,255,255,0)');
+      // Soft horizontal glow like the reference
+      const leftGlow = ctx.createRadialGradient(260,1460,60,260,1460,440);
+      leftGlow.addColorStop(0, rgba(state.color1, .42));
+      leftGlow.addColorStop(.35, rgba(state.color1, .22));
+      leftGlow.addColorStop(1, rgba(state.color1, 0));
+      ctx.fillStyle = leftGlow;
+      ctx.fillRect(0,960,620,840);
+
+      const rightGlow = ctx.createRadialGradient(835,1455,60,835,1455,450);
+      rightGlow.addColorStop(0, rgba(state.color1, .42));
+      rightGlow.addColorStop(.35, rgba(state.color1, .22));
+      rightGlow.addColorStop(1, rgba(state.color1, 0));
+      ctx.fillStyle = rightGlow;
+      ctx.fillRect(450,960,630,840);
+
+      const centerGlow = ctx.createRadialGradient(540,1360,120,540,1360,590);
+      centerGlow.addColorStop(0, 'rgba(255,255,255,.05)');
+      centerGlow.addColorStop(1, 'rgba(255,255,255,0)');
       ctx.fillStyle = centerGlow;
-      ctx.fillRect(0,850,1080,850);
+      ctx.fillRect(0,900,1080,1020);
 
-      drawTemplateBadge(TEMPLATES[state.currentTemplate].badge);
+      ctx.fillStyle='#fff';
+      ctx.textAlign='center';
+      ctx.textBaseline='alphabetic';
 
-      ctx.fillStyle = '#fff';
-      ctx.textBaseline = 'alphabetic';
-      ctx.textAlign = 'center';
+      // City
+      const city=ui.city.value.trim().toUpperCase();
+      const citySize=fitText(city,820,36,24,s=>`500 ${s}px Inter, Arial, sans-serif`);
+      ctx.font=`500 ${citySize}px Inter, Arial, sans-serif`;
+      drawLetterSpacedText(city,540,1126,9);
 
-      const city = ui.city.value.trim().toUpperCase();
-      const citySize = fitText(city, 850, 38, 26, s => `600 ${s}px Inter, Arial, sans-serif`);
-      ctx.font = `600 ${citySize}px Inter, Arial, sans-serif`;
-      drawLetterSpacedText(city, 540, 1148, 7);
+      // Price
+      const price=ui.price.value.trim();
+      const priceSize=fitText(price,920,126,72,s=>`600 ${s}px "Cormorant Garamond", Georgia, serif`);
+      ctx.font=`600 ${priceSize}px "Cormorant Garamond", Georgia, serif`;
+      ctx.fillText(price,540,1284);
 
-      const price = ui.price.value.trim();
-      const priceSize = fitText(price, 880, 100, 60, s => `600 ${s}px "Cormorant Garamond", Georgia, serif`);
-      ctx.font = `600 ${priceSize}px "Cormorant Garamond", Georgia, serif`;
-      ctx.fillText(price,540,1260);
+      // Headline
+      const headline=ui.headline.value.trim().toUpperCase();
+      const headlineSize=fitText(headline,960,48,28,s=>`800 ${s}px Inter, Arial, sans-serif`);
+      ctx.font=`800 ${headlineSize}px Inter, Arial, sans-serif`;
+      ctx.fillText(headline,540,1418);
 
-      const incentive = ui.incentive.value.trim().toUpperCase();
-      const incentiveSize = fitText(incentive, 930, 44, 26, s => `800 ${s}px Inter, Arial, sans-serif`);
-      ctx.font = `800 ${incentiveSize}px Inter, Arial, sans-serif`;
-      ctx.fillText(incentive,540,1382);
+      // Detail line
+      const detail=ui.detail.value.trim().toUpperCase();
+      const detailSize=fitText(detail,970,24,16,s=>`500 ${s}px Inter, Arial, sans-serif`);
+      ctx.font=`500 ${detailSize}px Inter, Arial, sans-serif`;
+      drawLetterSpacedText(detail,540,1478,3.4);
 
-      const detail = ui.detail.value.trim().toUpperCase();
-      const detailSize = fitText(detail, 930, 28, 18, s => `500 ${s}px Inter, Arial, sans-serif`);
-      ctx.font = `500 ${detailSize}px Inter, Arial, sans-serif`;
-      drawLetterSpacedText(detail,540,1440,1.2);
+      // Button
+      ctx.strokeStyle='rgba(255,255,255,.92)';
+      ctx.lineWidth=3;
+      const bw=830, bh=78, bx=540-bw/2, by=1524;
+      roundedRect(bx,by,bw,bh,38);
+      ctx.stroke();
 
-      const cta = ui.cta.value.trim().toUpperCase();
-      if (cta) {
-        ctx.font = '700 26px Inter, Arial, sans-serif';
-        const textW = ctx.measureText(cta).width;
-        const bw = Math.max(252, textW + 96);
-        const bh = 74;
-        const bx = 540 - bw/2;
-        const by = 1488;
-
-        ctx.strokeStyle = 'rgba(255,255,255,.98)';
-        ctx.lineWidth = 3;
-        roundedRect(bx,by,bw,bh,8);
-        ctx.stroke();
-
-        ctx.fillStyle = '#fff';
-        ctx.fillText(cta,540,1538);
+      const cta=ui.cta.value.trim().toUpperCase();
+      if(cta){
+        ctx.font='700 25px Inter, Arial, sans-serif';
+        ctx.fillStyle='#fff';
+        drawLetterSpacedText(cta,540,1573,2);
       }
 
+      // Logo row
+      const logoTop = 1648;
+      const left = drawLogo(state.leftLogo, 312, logoTop, 360, 140);
+      const right = drawLogo(state.rightLogo, 756, logoTop + 10, 390, 92);
+
+      // Divider
       ctx.save();
-      ctx.strokeStyle = 'rgba(255,255,255,.24)';
-      ctx.lineWidth = 2;
+      ctx.strokeStyle='rgba(255,255,255,.72)';
+      ctx.lineWidth=2;
       ctx.beginPath();
-      ctx.moveTo(210, 1600);
-      ctx.lineTo(870, 1600);
+      ctx.moveTo(540, 1676);
+      ctx.lineTo(540, 1764);
       ctx.stroke();
       ctx.restore();
 
-      let brandY = 1632;
-      if (state.logo) {
-        brandY = drawLogo(state.logo, 540, brandY, 420, 108) + 26;
+      // Name and phone
+      const agent=ui.agent.value.trim();
+      if(agent){
+        const agentSize=fitText(agent,860,34,24,s=>`500 ${s}px "Cormorant Garamond", Georgia, serif`);
+        ctx.font=`500 ${agentSize}px "Cormorant Garamond", Georgia, serif`;
+        ctx.fillStyle='#fff';
+        ctx.fillText(agent,540,1816);
       }
 
-      const agent = ui.agent.value.trim();
-      if (agent) {
-        const agentSize = fitText(agent, 840, 28, 22, s => `600 ${s}px Inter, Arial, sans-serif`);
-        ctx.font = `600 ${agentSize}px Inter, Arial, sans-serif`;
-        ctx.fillText(agent,540,brandY + 8);
-        brandY += 46;
-      }
-
-      const phone = ui.phone.value.trim();
-      if (phone) {
-        ctx.font = '500 26px Inter, Arial, sans-serif';
-        ctx.fillText(phone,540,brandY + 4);
+      const phone=ui.phone.value.trim();
+      if(phone){
+        ctx.font='500 24px Inter, Arial, sans-serif';
+        drawLetterSpacedText(phone,540,1862,2.8);
       }
 
       drawSafeGuides();
     }
 
-    ui.templateButtons.forEach(btn => {
-      btn.addEventListener('click', () => applyTemplate(btn.dataset.template));
-    });
-
-    ui.photoInput.addEventListener('change', (e) => {
-      loadImageFromFile(e.target.files[0], img => {
-        state.photo = img;
-        state.offsetX = 0;
-        state.offsetY = 0;
-        setZoomValue(1);
-        ui.emptyState.style.display = 'none';
-      });
-    });
-
-    ui.logoInput.addEventListener('change', (e) => {
-      loadImageFromFile(e.target.files[0], img => {
-        state.logo = img;
-        draw();
-      });
-    });
-
-    ['city','price','incentive','detail','cta','agent','phone'].forEach(id => {
-      ui[id].addEventListener('input', draw);
-    });
-
-    function applyColorField(inputEl, pickerEl, which) {
-      const clean = sanitizeHex(inputEl.value);
-      if (clean) {
-        inputEl.value = clean;
-        pickerEl.value = clean;
-        if (which === 1) {
-          applyGradientColors(clean, state.color2);
-        } else {
-          applyGradientColors(state.color1, clean);
-        }
-        draw();
-      } else {
-        ui.appliedGradient.textContent = 'Invalid hex value';
-        ui.appliedGradient.style.background = '#fff1f1';
-        ui.appliedGradient.style.borderColor = '#f2c9c9';
-        ui.appliedGradient.style.color = '#9a3030';
-      }
+    function applyTemplate(name){
+      const tpl=TEMPLATES[name];
+      if(!tpl) return;
+      state.currentTemplate=name;
+      ui.templateButtons.forEach(btn=>btn.classList.toggle('active',btn.dataset.template===name));
+      ui.city.value=tpl.city;
+      ui.price.value=tpl.price;
+      ui.headline.value=tpl.headline;
+      ui.detail.value=tpl.detail;
+      ui.cta.value=tpl.cta;
+      draw();
     }
 
-    ui.color1Picker.addEventListener('input', () => {
-      applyGradientColors(ui.color1Picker.value, state.color2);
+    function applyColors(c1,c2){
+      const a=sanitizeHex(c1)||'#103E68';
+      const b=sanitizeHex(c2)||'#071A2D';
+      state.color1=a;
+      state.color2=b;
+      ui.color1Hex.value=a;
+      ui.color2Hex.value=b;
+      ui.color1Picker.value=a;
+      ui.color2Picker.value=b;
+      ui.appliedGradient.textContent=`${a} → ${b}`;
+      ui.appliedGradient.style.background=`linear-gradient(90deg, ${a}22, ${b}33)`;
+      draw();
+    }
+
+    ui.templateButtons.forEach(btn=>btn.addEventListener('click',()=>applyTemplate(btn.dataset.template)));
+
+    ui.photoInput.addEventListener('change',e=>{
+      loadImageFromFile(e.target.files[0],img=>{
+        state.photo=img;
+        state.offsetX=0;
+        state.offsetY=0;
+        setZoom(1);
+        ui.emptyState.style.display='none';
+      });
+    });
+
+    ui.leftLogoInput.addEventListener('change',e=>{
+      loadImageFromFile(e.target.files[0],img=>{state.leftLogo=img;draw()});
+    });
+
+    ui.rightLogoInput.addEventListener('change',e=>{
+      loadImageFromFile(e.target.files[0],img=>{state.rightLogo=img;draw()});
+    });
+
+    ['city','price','headline','detail','cta','agent','phone'].forEach(id=>{
+      ui[id].addEventListener('input',draw);
+    });
+
+    ui.zoom.addEventListener('input',()=>setZoom(parseFloat(ui.zoom.value)));
+    ui.zoomIn.addEventListener('click',()=>setZoom(state.zoom+.1));
+    ui.zoomOut.addEventListener('click',()=>setZoom(state.zoom-.1));
+
+    ui.centerPhoto.addEventListener('click',()=>{
+      state.offsetX=0;
+      state.offsetY=0;
       draw();
     });
 
-    ui.color2Picker.addEventListener('input', () => {
-      applyGradientColors(state.color1, ui.color2Picker.value);
-      draw();
-    });
+    ui.safeGuides.addEventListener('change',draw);
 
-    ui.color1Hex.addEventListener('input', () => applyColorField(ui.color1Hex, ui.color1Picker, 1));
-    ui.color2Hex.addEventListener('input', () => applyColorField(ui.color2Hex, ui.color2Picker, 2));
+    ui.color1Picker.addEventListener('input',()=>applyColors(ui.color1Picker.value,state.color2));
+    ui.color2Picker.addEventListener('input',()=>applyColors(state.color1,ui.color2Picker.value));
+    ui.color1Hex.addEventListener('blur',()=>applyColors(ui.color1Hex.value,state.color2));
+    ui.color2Hex.addEventListener('blur',()=>applyColors(state.color1,ui.color2Hex.value));
 
-    ui.color1Hex.addEventListener('blur', () => {
-      applyGradientColors(sanitizeHex(ui.color1Hex.value) || DEFAULT_COLORS.color1, state.color2);
-      draw();
-    });
-
-    ui.color2Hex.addEventListener('blur', () => {
-      applyGradientColors(state.color1, sanitizeHex(ui.color2Hex.value) || DEFAULT_COLORS.color2);
-      draw();
-    });
-
-    ui.zoom.addEventListener('input', () => setZoomValue(parseFloat(ui.zoom.value)));
-    ui.zoomIn.addEventListener('click', () => setZoomValue(state.zoom + 0.1));
-    ui.zoomOut.addEventListener('click', () => setZoomValue(state.zoom - 0.1));
-
-    ui.centerPhoto.addEventListener('click', () => {
-      state.offsetX = 0;
-      state.offsetY = 0;
-      draw();
-    });
-
-    ui.safeGuides.addEventListener('change', draw);
-
-    ui.resetAll.addEventListener('click', () => {
-      state.offsetX = 0;
-      state.offsetY = 0;
-      setZoomValue(1);
+    ui.resetAll.addEventListener('click',()=>{
+      state.offsetX=0;
+      state.offsetY=0;
+      ui.safeGuides.checked=false;
       applyTemplate('for-sale');
-      applyGradientColors(DEFAULT_COLORS.color1, DEFAULT_COLORS.color2);
-      ui.agent.value = DEFAULT_BRANDING.agent;
-      ui.phone.value = DEFAULT_BRANDING.phone;
-      ui.safeGuides.checked = false;
+      applyColors('#103E68','#071A2D');
+      ui.agent.value='Michael Mechler, Broker Associate';
+      ui.phone.value='(512) YES-2-OWN';
+      setZoom(1);
       draw();
     });
 
-    function canvasPoint(e) {
-      const rect = canvas.getBoundingClientRect();
+    function canvasPoint(e){
+      const r=canvas.getBoundingClientRect();
       return {
-        x:(e.clientX - rect.left) * (canvas.width / rect.width),
-        y:(e.clientY - rect.top) * (canvas.height / rect.height)
+        x:(e.clientX-r.left)*(canvas.width/r.width),
+        y:(e.clientY-r.top)*(canvas.height/r.height)
       };
     }
 
-    canvas.addEventListener('pointerdown', e => {
-      if (!state.photo) return;
+    canvas.addEventListener('pointerdown',e=>{
+      if(!state.photo) return;
       canvas.setPointerCapture(e.pointerId);
-      const p = canvasPoint(e);
-      state.dragging = true;
-      state.lastX = p.x;
-      state.lastY = p.y;
+      const p=canvasPoint(e);
+      state.dragging=true;
+      state.lastX=p.x;
+      state.lastY=p.y;
       canvas.classList.add('dragging');
     });
 
-    canvas.addEventListener('pointermove', e => {
-      if (!state.dragging) return;
-      const p = canvasPoint(e);
-      state.offsetX += p.x - state.lastX;
-      state.offsetY += p.y - state.lastY;
-      state.lastX = p.x;
-      state.lastY = p.y;
+    canvas.addEventListener('pointermove',e=>{
+      if(!state.dragging) return;
+      const p=canvasPoint(e);
+      state.offsetX+=p.x-state.lastX;
+      state.offsetY+=p.y-state.lastY;
+      state.lastX=p.x;
+      state.lastY=p.y;
       clampOffsets();
       draw();
     });
 
-    function endDrag(e) {
-      state.dragging = false;
+    function endDrag(e){
+      state.dragging=false;
       canvas.classList.remove('dragging');
-      try { canvas.releasePointerCapture(e.pointerId); } catch {}
+      try{canvas.releasePointerCapture(e.pointerId)}catch{}
     }
-    canvas.addEventListener('pointerup', endDrag);
-    canvas.addEventListener('pointercancel', endDrag);
+    canvas.addEventListener('pointerup',endDrag);
+    canvas.addEventListener('pointercancel',endDrag);
 
-    canvas.addEventListener('wheel', e => {
-      if (!state.photo) return;
+    canvas.addEventListener('wheel',e=>{
+      if(!state.photo) return;
       e.preventDefault();
-      const delta = e.deltaY > 0 ? -0.04 : 0.04;
-      setZoomValue(state.zoom + delta);
-    }, {passive:false});
+      setZoom(state.zoom+(e.deltaY>0?-.04:.04));
+    },{passive:false});
 
-    ui.download.addEventListener('click', () => {
-      if (!state.photo) {
+    ui.download.addEventListener('click',()=>{
+      if(!state.photo){
         alert('Upload a property photo first.');
         return;
       }
-      const previous = ui.safeGuides.checked;
-      ui.safeGuides.checked = false;
+      const showGuides=ui.safeGuides.checked;
+      ui.safeGuides.checked=false;
       draw();
 
-      const link = document.createElement('a');
-      const safeCity = (ui.city.value || 'property').trim().toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
-      const safeTemplate = state.currentTemplate.replace(/[^a-z0-9]+/g,'-');
-      link.download = `${safeCity || 'property'}-${safeTemplate}-story.png`;
-      link.href = canvas.toDataURL('image/png', 1);
+      const link=document.createElement('a');
+      const safeCity=(ui.city.value||'property').trim().toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+      link.download=`${safeCity||'property'}-${state.currentTemplate}-story.png`;
+      link.href=canvas.toDataURL('image/png',1);
       link.click();
 
-      ui.safeGuides.checked = previous;
+      ui.safeGuides.checked=showGuides;
       draw();
     });
 
-    applyGradientColors(DEFAULT_COLORS.color1, DEFAULT_COLORS.color2);
-    setZoomValue(1);
+    applyColors('#103E68','#071A2D');
     applyTemplate('for-sale');
-    ui.agent.value = DEFAULT_BRANDING.agent;
-    ui.phone.value = DEFAULT_BRANDING.phone;
-    draw();
+    setZoom(1);
+    document.fonts.ready.then(draw);
   </script>
 </body>
 </html>
