@@ -709,7 +709,7 @@
       ctx.fillStyle = bloomRight;
       ctx.fillRect(0,0,1080,1920);
 
-      const leftX = 160;
+      const leftX = 170;
       ctx.fillStyle = '#fff';
       ctx.textBaseline = 'alphabetic';
       ctx.textAlign = 'left';
@@ -731,9 +731,9 @@
       ctx.fillText(headline, leftX, 1352);
 
       const detail = ui.detail.value.trim().toUpperCase();
-      const detailSize = fitText(detail, 955, 24, 16, s=>`500 ${s}px Inter, Arial, sans-serif`);
+      const detailSize = fitText(detail, 840, 24, 16, s=>`500 ${s}px Inter, Arial, sans-serif`);
       ctx.font = `500 ${detailSize}px Inter, Arial, sans-serif`;
-      drawLetterSpacedLeft(detail, leftX, 1410, 2.7);
+      drawLetterSpacedCentered(detail, 540, 1410, 2.7);
 
       // Frosted translucent button.
       const bw = 838, bh = 96, bx = (1080-bw)/2, by = 1480;
