@@ -293,6 +293,32 @@
       font-size:13px;
       opacity:.75;
     }
+    .check-row{
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      margin-top:10px;
+      font-size:13px;
+      color:#23323f;
+    }
+    .check-row input{
+      margin-top:2px;
+      width:16px;
+      height:16px;
+      accent-color:#0b2d4e;
+      flex:0 0 auto;
+    }
+    .check-row span strong{
+      display:block;
+      font-size:13px;
+      margin-bottom:2px;
+    }
+    .check-row span small{
+      display:block;
+      color:var(--muted);
+      line-height:1.45;
+      font-size:11px;
+    }
     @media (max-width:1040px){
       .app{grid-template-columns:1fr;padding:16px}
       .panel{position:static;max-height:none}
@@ -361,12 +387,11 @@
 
         <label for="headline">Headline</label>
         <input id="headline" type="text" value="+ 3% IN BUYER INCENTIVES" />
+        <p class="hint">For a fixed-dollar incentive, use a complete phrase such as “+ $3,000 BUYER CREDIT” rather than “+ $3,000 TOWARDS.”</p>
 
         <label for="detail">Detail line</label>
         <input id="detail" type="text" value="RATE BUYDOWN • CLOSING COSTS • AND MORE" />
 
-        <label for="cta">Button text (optional)</label>
-        <input id="cta" type="text" value="" placeholder="Leave blank for the empty outlined button look" />
       </div>
 
       <div class="group">
@@ -386,7 +411,13 @@
 
         <label>Current colors</label>
         <div class="pill" id="appliedGradient">#103E68 → #100B28</div>
-        <p class="hint">The default colors are optimized for this design. Adjust only if you want a custom look.</p>
+
+        <label for="gradientStrength">Gradient intensity</label>
+        <div class="zoom-row">
+          <input id="gradientStrength" type="range" min="0.70" max="1.30" step="0.01" value="1" />
+          <div class="value-chip" id="gradientStrengthValue">100%</div>
+        </div>
+        <p class="hint">100% is the new cinematic default. Increase it for an even richer, more dramatic lower-third treatment.</p>
       </div>
 
       <div class="group">
@@ -394,12 +425,26 @@
         <label for="logoInput">Logo upload</label>
         <input id="logoInput" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" />
 
-        <label for="agent">Name line</label>
-        <input id="agent" type="text" value="Michael Mechler, Broker Associate" />
+        <label for="brandLine1">Brand line 1</label>
+        <input id="brandLine1" type="text" value="Michael Mechler, Broker Associate" />
 
-        <label for="phone">Phone line</label>
-        <input id="phone" type="text" value="(512) YES-2-OWN" />
-        <p class="hint">Upload your preferred logo lockup. PNG with transparency works best.</p>
+        <label for="brandLine2">Brand line 2</label>
+        <input id="brandLine2" type="text" value="(512) YES-2-OWN" />
+
+        <label for="brandLine3">Brand line 3</label>
+        <input id="brandLine3" type="text" value="" />
+        <p class="hint">Upload your preferred logo lockup. PNG with transparency works best. Use one, two, or three optional branding lines; the block automatically centers itself.</p>
+      </div>
+
+      <div class="group">
+        <div class="group-title">6. Link sticker placement</div>
+        <label class="check-row" for="showLinkGuide">
+          <input id="showLinkGuide" type="checkbox" checked />
+          <span>
+            <strong>Include a fixed link sticker placeholder</strong>
+            <small>A fixed pill-shaped dock will export in the same spot on every Story. Keep Instagram’s Link sticker at its default size and place it inside the pill for repeatable vertical alignment.</small>
+          </span>
+        </label>
       </div>
 
       <button class="download" id="download" type="button">DOWNLOAD STORY</button>
@@ -424,43 +469,37 @@
         city:'LIBERTY HILL',
         price:'$275,890',
         headline:'+ 3% IN BUYER INCENTIVES',
-        detail:'RATE BUYDOWN • CLOSING COSTS • AND MORE',
-        cta:''
+        detail:'RATE BUYDOWN • CLOSING COSTS • AND MORE'
       },
       'just-listed': {
         city:'AUSTIN',
         price:'$499,000',
         headline:'JUST LISTED',
-        detail:'NEW TO MARKET',
-        cta:''
+        detail:'NEW TO MARKET'
       },
       'for-sale': {
         city:'AUSTIN',
         price:'$499,000',
         headline:'+ 3% IN BUYER INCENTIVES',
-        detail:'RATE BUYDOWN • CLOSING COSTS • AND MORE',
-        cta:''
+        detail:'RATE BUYDOWN • CLOSING COSTS • AND MORE'
       },
       'for-lease': {
         city:'AUSTIN',
         price:'$2,995/MO',
         headline:'AVAILABLE FOR LEASE',
-        detail:'MOVE-IN READY • FLEXIBLE TERMS • AND MORE',
-        cta:''
+        detail:'MOVE-IN READY • FLEXIBLE TERMS • AND MORE'
       },
       'seller-financing': {
         city:'AUSTIN',
         price:'$499,000',
         headline:'SELLER FINANCING AVAILABLE',
-        detail:'LOWER RATE • FLEXIBLE TERMS • AND MORE',
-        cta:''
+        detail:'LOWER RATE • FLEXIBLE TERMS • AND MORE'
       },
       'open-house': {
         city:'AUSTIN',
         price:'$499,000',
         headline:'OPEN HOUSE • SATURDAY 12–2',
-        detail:'COME SEE IT IN PERSON',
-        cta:''
+        detail:'COME SEE IT IN PERSON'
       }
     };
 
@@ -486,14 +525,17 @@
       price:document.getElementById('price'),
       headline:document.getElementById('headline'),
       detail:document.getElementById('detail'),
-      cta:document.getElementById('cta'),
-      agent:document.getElementById('agent'),
-      phone:document.getElementById('phone'),
+      brandLine1:document.getElementById('brandLine1'),
+      brandLine2:document.getElementById('brandLine2'),
+      brandLine3:document.getElementById('brandLine3'),
       color1Picker:document.getElementById('color1Picker'),
       color2Picker:document.getElementById('color2Picker'),
       color1Hex:document.getElementById('color1Hex'),
       color2Hex:document.getElementById('color2Hex'),
       appliedGradient:document.getElementById('appliedGradient'),
+      gradientStrength:document.getElementById('gradientStrength'),
+      gradientStrengthValue:document.getElementById('gradientStrengthValue'),
+      showLinkGuide:document.getElementById('showLinkGuide'),
       centerPhoto:document.getElementById('centerPhoto'),
       resetAll:document.getElementById('resetAll'),
       download:document.getElementById('download'),
@@ -512,7 +554,9 @@
       lastX:0,
       lastY:0,
       color1:'#103E68',
-      color2:'#100B28'
+      color2:'#100B28',
+      gradientStrength:1,
+      showLinkGuide:true
     };
 
     function loadImageFromFile(file, done){
@@ -543,6 +587,17 @@
     function rgba(hex,a){
       const rgb=hexToRgb(hex);
       return rgb ? `rgba(${rgb.r},${rgb.g},${rgb.b},${a})` : `rgba(16,62,104,${a})`;
+    }
+
+    function rgbaLifted(hex,a,lift=.20){
+      const rgb=hexToRgb(hex);
+      if(!rgb) return `rgba(38,92,145,${a})`;
+      const mix=v=>Math.round(v+(255-v)*lift);
+      return `rgba(${mix(rgb.r)},${mix(rgb.g)},${mix(rgb.b)},${a})`;
+    }
+
+    function ga(a){
+      return Math.min(.98, Math.max(0, a * state.gradientStrength));
     }
 
     function setZoom(v){
@@ -633,81 +688,73 @@
         ctx.fillRect(0,0,STORY_W,STORY_H);
       }
 
-      // Build the lower atmosphere with full-canvas feathered gradients so there is no visible top "line".
-      // These overlays all render across the full canvas and rely on transparency ramps, not hard rectangular starts.
+      // Cinematic lower-third treatment. Keep the strong premium bottom build,
+      // but remove the obvious left-originating color cast so the composition feels cleaner and more balanced.
 
-      // Very soft atmospheric darkening.
-      const atmosphere = ctx.createLinearGradient(0,0,0,1920);
-      atmosphere.addColorStop(0.00, 'rgba(4,12,22,0)');
-      atmosphere.addColorStop(0.52, 'rgba(4,12,22,0)');
-      atmosphere.addColorStop(0.66, 'rgba(4,12,22,.035)');
-      atmosphere.addColorStop(0.80, 'rgba(4,12,22,.10)');
-      atmosphere.addColorStop(1.00, 'rgba(4,12,22,.23)');
-      ctx.fillStyle = atmosphere;
-      ctx.fillRect(0,0,1080,1920);
+      // 1) Deep contrast build: begins well above the copy and becomes nearly opaque at the foot.
+      const cinematicShade = ctx.createLinearGradient(0,0,0,STORY_H);
+      cinematicShade.addColorStop(0.00, 'rgba(3,8,17,0)');
+      cinematicShade.addColorStop(0.46, 'rgba(3,8,17,0)');
+      cinematicShade.addColorStop(0.56, `rgba(3,8,17,${ga(.08)})`);
+      cinematicShade.addColorStop(0.68, `rgba(3,8,17,${ga(.24)})`);
+      cinematicShade.addColorStop(0.79, `rgba(3,8,17,${ga(.46)})`);
+      cinematicShade.addColorStop(0.90, `rgba(3,8,17,${ga(.67)})`);
+      cinematicShade.addColorStop(1.00, `rgba(3,8,17,${ga(.84)})`);
+      ctx.fillStyle = cinematicShade;
+      ctx.fillRect(0,0,STORY_W,STORY_H);
 
-      // Broad feathered blue veil. This is the main anti-box layer.
-      const blueVeil = ctx.createRadialGradient(540,1450,120,540,1450,1180);
-      blueVeil.addColorStop(0.00, rgba(state.color1,.16));
-      blueVeil.addColorStop(0.28, rgba(state.color1,.12));
-      blueVeil.addColorStop(0.55, rgba(state.color1,.07));
-      blueVeil.addColorStop(0.78, rgba(state.color1,.028));
-      blueVeil.addColorStop(1.00, rgba(state.color1,0));
-      ctx.fillStyle = blueVeil;
-      ctx.fillRect(0,0,1080,1920);
+      // 2) Main blue field. This is now centered so it reads as an intentional lower-third treatment,
+      // not a gradient pushing in from the left edge.
+      const centeredBlueField = ctx.createRadialGradient(540,1505,110,540,1505,920);
+      centeredBlueField.addColorStop(0.00, rgbaLifted(state.color1,ga(.56),.18));
+      centeredBlueField.addColorStop(0.22, rgbaLifted(state.color1,ga(.44),.12));
+      centeredBlueField.addColorStop(0.48, rgba(state.color1,ga(.30)));
+      centeredBlueField.addColorStop(0.74, rgba(state.color1,ga(.12)));
+      centeredBlueField.addColorStop(1.00, rgba(state.color1,0));
+      ctx.fillStyle = centeredBlueField;
+      ctx.fillRect(0,0,STORY_W,STORY_H);
 
-      // Main blue-to-navy build, but feathered from higher up with a long fade-in.
-      const blueLayer = ctx.createLinearGradient(0,0,0,1920);
-      blueLayer.addColorStop(0.00, rgba(state.color1,0));
-      blueLayer.addColorStop(0.54, rgba(state.color1,0));
-      blueLayer.addColorStop(0.64, rgba(state.color1,.030));
-      blueLayer.addColorStop(0.74, rgba(state.color1,.11));
-      blueLayer.addColorStop(0.86, rgba(state.color1,.22));
-      blueLayer.addColorStop(0.94, rgba(state.color2,.34));
-      blueLayer.addColorStop(1.00, rgba(state.color2,.56));
-      ctx.fillStyle = blueLayer;
-      ctx.fillRect(0,0,1080,1920);
+      // 3) Controlled right-side bloom adds dimensionality without creating a visible side gradient.
+      const rightBloom = ctx.createRadialGradient(830,1450,80,830,1450,620);
+      rightBloom.addColorStop(0.00, rgbaLifted(state.color1,ga(.18),.22));
+      rightBloom.addColorStop(0.40, rgba(state.color1,ga(.12)));
+      rightBloom.addColorStop(0.72, rgba(state.color1,ga(.05)));
+      rightBloom.addColorStop(1.00, rgba(state.color1,0));
+      ctx.fillStyle = rightBloom;
+      ctx.fillRect(0,0,STORY_W,STORY_H);
 
-      // Lower blue core so the upper transition stays invisible.
-      const blueCore = ctx.createRadialGradient(485,1540,120,485,1540,760);
-      blueCore.addColorStop(0.00, rgba(state.color1,.22));
-      blueCore.addColorStop(0.34, rgba(state.color1,.14));
-      blueCore.addColorStop(0.68, rgba(state.color1,.05));
-      blueCore.addColorStop(1.00, rgba(state.color1,0));
-      ctx.fillStyle = blueCore;
-      ctx.fillRect(0,0,1080,1920);
+      // 4) DE navy foundation. This keeps the premium bottom build that is already working.
+      const navyFoundation = ctx.createLinearGradient(0,0,0,STORY_H);
+      navyFoundation.addColorStop(0.00, rgba(state.color2,0));
+      navyFoundation.addColorStop(0.56, rgba(state.color2,0));
+      navyFoundation.addColorStop(0.68, rgba(state.color2,ga(.10)));
+      navyFoundation.addColorStop(0.79, rgba(state.color2,ga(.30)));
+      navyFoundation.addColorStop(0.90, rgba(state.color2,ga(.61)));
+      navyFoundation.addColorStop(1.00, rgba(state.color2,ga(.91)));
+      ctx.fillStyle = navyFoundation;
+      ctx.fillRect(0,0,STORY_W,STORY_H);
 
-      // Bottom navy anchor, also full-canvas so it blends in gradually.
-      const bottomAnchor = ctx.createLinearGradient(0,0,0,1920);
-      bottomAnchor.addColorStop(0.00, rgba(state.color2,0));
-      bottomAnchor.addColorStop(0.70, rgba(state.color2,0));
-      bottomAnchor.addColorStop(0.82, rgba(state.color2,.18));
-      bottomAnchor.addColorStop(0.92, rgba(state.color2,.46));
-      bottomAnchor.addColorStop(1.00, rgba(state.color2,.80));
-      ctx.fillStyle = bottomAnchor;
-      ctx.fillRect(0,0,1080,1920);
+      // 5) Luminous center bloom behind the copy/logo adds depth and keeps the gradient from feeling muddy.
+      const centerGlow = ctx.createRadialGradient(540,1515,80,540,1515,650);
+      centerGlow.addColorStop(0.00, `rgba(255,255,255,${ga(.082)})`);
+      centerGlow.addColorStop(0.24, rgbaLifted(state.color1,ga(.18),.28));
+      centerGlow.addColorStop(0.56, rgba(state.color1,ga(.10)));
+      centerGlow.addColorStop(1.00, 'rgba(255,255,255,0)');
+      ctx.fillStyle = centerGlow;
+      ctx.fillRect(0,0,STORY_W,STORY_H);
 
-      // Localized blooms to keep the mockup feel.
-      const bloomLeft = ctx.createRadialGradient(300,1470,55,300,1470,520);
-      bloomLeft.addColorStop(0.00, rgba(state.color1,.37));
-      bloomLeft.addColorStop(0.40, rgba(state.color1,.20));
-      bloomLeft.addColorStop(1.00, rgba(state.color1,0));
-      ctx.fillStyle = bloomLeft;
-      ctx.fillRect(0,0,1080,1920);
+      // 6) Very subtle symmetric side vignette for focus, without introducing a left-heavy cast.
+      const leftEdge = ctx.createLinearGradient(0,0,180,0);
+      leftEdge.addColorStop(0.00, `rgba(2,6,13,${ga(.07)})`);
+      leftEdge.addColorStop(1.00, 'rgba(2,6,13,0)');
+      ctx.fillStyle = leftEdge;
+      ctx.fillRect(0,0,200,STORY_H);
 
-      const bloomCenter = ctx.createRadialGradient(560,1510,125,560,1510,640);
-      bloomCenter.addColorStop(0.00, 'rgba(255,255,255,.040)');
-      bloomCenter.addColorStop(0.30, rgba(state.color1,.15));
-      bloomCenter.addColorStop(1.00, 'rgba(255,255,255,0)');
-      ctx.fillStyle = bloomCenter;
-      ctx.fillRect(0,0,1080,1920);
-
-      const bloomRight = ctx.createRadialGradient(860,1545,70,860,1545,490);
-      bloomRight.addColorStop(0.00, rgba(state.color1,.24));
-      bloomRight.addColorStop(0.42, rgba(state.color1,.14));
-      bloomRight.addColorStop(1.00, rgba(state.color1,0));
-      ctx.fillStyle = bloomRight;
-      ctx.fillRect(0,0,1080,1920);
+      const rightEdge = ctx.createLinearGradient(STORY_W,0,STORY_W-180,0);
+      rightEdge.addColorStop(0.00, `rgba(2,6,13,${ga(.07)})`);
+      rightEdge.addColorStop(1.00, 'rgba(2,6,13,0)');
+      ctx.fillStyle = rightEdge;
+      ctx.fillRect(STORY_W-200,0,200,STORY_H);
 
       const leftX = 170;
       ctx.fillStyle = '#fff';
@@ -733,42 +780,49 @@
       const detail = ui.detail.value.trim().toUpperCase();
       const detailSize = fitText(detail, 840, 24, 16, s=>`500 ${s}px Inter, Arial, sans-serif`);
       ctx.font = `500 ${detailSize}px Inter, Arial, sans-serif`;
-      drawLetterSpacedCentered(detail, 540, 1410, 2.7);
+      drawLetterSpacedLeft(detail, leftX, 1396, 2.7);
 
-      // Frosted translucent button.
-      const bw = 838, bh = 96, bx = (1080-bw)/2, by = 1480;
-      const buttonFill = ctx.createLinearGradient(0, by, 0, by + bh);
-      buttonFill.addColorStop(0, 'rgba(255,255,255,.22)');
-      buttonFill.addColorStop(.48, 'rgba(255,255,255,.12)');
-      buttonFill.addColorStop(1, 'rgba(255,255,255,.18)');
-      roundedRect(bx,by,bw,bh,40);
-      ctx.fillStyle = buttonFill;
-      ctx.fill();
-      ctx.strokeStyle = 'rgba(255,255,255,.95)';
-      ctx.lineWidth = 3;
-      roundedRect(bx,by,bw,bh,40);
-      ctx.stroke();
-      ctx.strokeStyle = 'rgba(255,255,255,.26)';
-      ctx.lineWidth = 1;
-      roundedRect(bx+5,by+5,bw-10,bh-10,35);
-      ctx.stroke();
+      // Fixed link sticker placeholder. Exporting a guide pill makes it easy to place
+      // Instagram's native link sticker in the exact same location on every post.
+      const guideX = 120;
+      const guideY = 1434;
+      const guideW = 840;
+      const guideH = 104;
+      const guideR = 52;
 
+      if(state.showLinkGuide){
+        ctx.save();
 
-      const cta = ui.cta.value.trim().toUpperCase();
-      if(cta){
-        ctx.fillStyle='#fff';
-        ctx.font='700 25px Inter, Arial, sans-serif';
-        drawLetterSpacedCentered(cta, 540, 1532, 2);
+        // Subtle frosted dock sized closely to Instagram's default Link sticker.
+        // It should mostly disappear once the native sticker is placed on top.
+        roundedRect(guideX, guideY, guideW, guideH, guideR);
+        const guideFill = ctx.createLinearGradient(guideX, guideY, guideX, guideY + guideH);
+        guideFill.addColorStop(0, 'rgba(255,255,255,.11)');
+        guideFill.addColorStop(1, 'rgba(255,255,255,.045)');
+        ctx.fillStyle = guideFill;
+        ctx.fill();
+
+        // No outline around the dock itself — the native Instagram sticker should be the only strong pill edge.
+
+        // The pill itself is the placement guide; no registration marks are exported.
+
+        ctx.restore();
       }
 
-      // Fixed-position branding block.
+      // Branding block.
       const logoTopY = 1566;
-      const nameY = 1762;
-      const phoneY = 1804;
-
-      if(state.logo){
-        drawLogo(state.logo, 540, logoTopY, 1100, 176);
-      }
+      const logoBottomY = state.logo ? drawLogo(state.logo, 540, logoTopY, 1100, 162) : 1660;
+      const brandingLines = [
+        ui.brandLine1.value.trim(),
+        ui.brandLine2.value.trim(),
+        ui.brandLine3.value.trim()
+      ].filter(Boolean);
+      const brandingStep = 42;
+      // Center the active branding lines as a group beneath the logo so 1, 2, or 3 lines all feel intentional.
+      const brandingCount = Math.max(1, brandingLines.length);
+      const brandingGroupHeight = (brandingCount - 1) * brandingStep;
+      const brandingCenterY = Math.max(1750, logoBottomY + 68);
+      const brandingStartY = brandingCenterY - (brandingGroupHeight / 2);
 
       ctx.textAlign = 'center';
       ctx.fillStyle = 'rgba(255,255,255,.98)';
@@ -777,21 +831,14 @@
       ctx.shadowOffsetX = 0;
       ctx.shadowOffsetY = 2;
 
-      const agent = ui.agent.value.trim();
-      if(agent){
-        const agentSize = fitText(agent, 860, 24, 18, s=>`500 ${s}px Inter, Arial, sans-serif`);
-        ctx.font = `500 ${agentSize}px Inter, Arial, sans-serif`;
-        ctx.fillStyle = 'rgba(255,255,255,.92)';
-        ctx.fillText(agent, 540, nameY);
-      }
-
-      const phone = ui.phone.value.trim();
-      if(phone){
-        const phoneSize = fitText(phone, 760, 24, 18, s=>`500 ${s}px Inter, Arial, sans-serif`);
-        ctx.font = `500 ${phoneSize}px Inter, Arial, sans-serif`;
-        ctx.fillStyle = 'rgba(255,255,255,.90)';
-        ctx.fillText(phone, 540, phoneY);
-      }
+      brandingLines.forEach((line, index)=>{
+        const maxSize = index === 0 ? 24 : 22;
+        const minSize = index === 0 ? 18 : 16;
+        const lineSize = fitText(line, 860, maxSize, minSize, s=>`500 ${s}px Inter, Arial, sans-serif`);
+        ctx.font = `500 ${lineSize}px Inter, Arial, sans-serif`;
+        ctx.fillStyle = index === 0 ? 'rgba(255,255,255,.96)' : 'rgba(255,255,255,.88)';
+        ctx.fillText(line, 540, brandingStartY + (index * brandingStep));
+      });
 
       ctx.shadowColor = 'transparent';
       ctx.shadowBlur = 0;
@@ -808,7 +855,6 @@
       ui.price.value=tpl.price;
       ui.headline.value=tpl.headline;
       ui.detail.value=tpl.detail;
-      ui.cta.value=tpl.cta;
       draw();
     }
 
@@ -822,7 +868,9 @@
       ui.color1Picker.value=a;
       ui.color2Picker.value=b;
       ui.appliedGradient.textContent=`${a} → ${b}`;
-      ui.appliedGradient.style.background=`linear-gradient(90deg, ${a}22, ${b}33)`;
+      ui.appliedGradient.style.background=`linear-gradient(110deg, ${a}CC 0%, ${a}88 38%, ${b}EE 100%)`;
+      ui.appliedGradient.style.color='#fff';
+      ui.appliedGradient.style.textShadow='0 1px 8px rgba(0,0,0,.35)';
       draw();
     }
 
@@ -845,7 +893,7 @@
       });
     });
 
-    ['city','price','headline','detail','cta','agent','phone'].forEach(id=>{
+    ['city','price','headline','detail','brandLine1','brandLine2','brandLine3'].forEach(id=>{
       ui[id].addEventListener('input',draw);
     });
 
@@ -863,14 +911,26 @@
     ui.color2Picker.addEventListener('input',()=>applyColors(state.color1,ui.color2Picker.value));
     ui.color1Hex.addEventListener('blur',()=>applyColors(ui.color1Hex.value,state.color2));
     ui.color2Hex.addEventListener('blur',()=>applyColors(state.color1,ui.color2Hex.value));
+    ui.gradientStrength.addEventListener('input',()=>{
+      state.gradientStrength=parseFloat(ui.gradientStrength.value)||1;
+      ui.gradientStrengthValue.textContent=`${Math.round(state.gradientStrength*100)}%`;
+      draw();
+    });
+    ui.showLinkGuide.addEventListener('change',()=>{
+      state.showLinkGuide=ui.showLinkGuide.checked;
+      draw();
+    });
 
     ui.resetAll.addEventListener('click',()=>{
       state.offsetX=0;
       state.offsetY=0;
       applyTemplate('custom');
       applyColors('#103E68','#100B28');
-      ui.agent.value='Michael Mechler, Broker Associate';
-      ui.phone.value='(512) YES-2-OWN';
+      ui.brandLine1.value='Michael Mechler, Broker Associate';
+      ui.brandLine2.value='(512) YES-2-OWN';
+      ui.brandLine3.value='';
+      ui.showLinkGuide.checked=true;
+      state.showLinkGuide=true;
       setZoom(1);
       draw();
     });
